@@ -20,6 +20,13 @@ public class MainActivity extends AppCompatActivity {
         btn_menu_3 = (Button) findViewById(R.id.btnMain03);
         btn_menu_4 = (Button) findViewById(R.id.btnMain04);
 
+        btn_menu_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(myIntent);
+            }
+        });
         btn_menu_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
