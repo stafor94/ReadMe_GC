@@ -30,7 +30,7 @@
             android:text="챗봇"
             android:textSize="25dp"
             android:textStyle="bold"
-            tools:textColor="#e0ffffff"></TextView>
+            tools:textColor="#e0ffffff" />
 
     </LinearLayout>
 

@@ -53,7 +53,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_chatbot);
 
         mContext = getApplicationContext();
         conversation_username = mContext.getString(R.string.conversation_username);

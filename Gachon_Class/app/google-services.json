@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "412595839116",
+    "firebase_url": "https://gachonclass.firebaseio.com",
+    "project_id": "gachonclass",
+    "storage_bucket": "gachonclass.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412595839116:android:f3060e02fae2acf9",
+        "android_client_info": {
+          "package_name": "com.example.iternity.gachon_class"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412595839116-3vhhfufsf3r91ogjf9u8djheam0cghu2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iternity.gachon_class",
+            "certificate_hash": "1a535bc58c3b6717e3d4e48b228da90ac1a0c0ea"
+          }
+        },
+        {
+          "client_id": "412595839116-nniv2tpshihei6gjh7a5eu5d5rnal3du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8OAcb0MYjOz0K87QI-hDRfZHfQS4n6L0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412595839116-nniv2tpshihei6gjh7a5eu5d5rnal3du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
