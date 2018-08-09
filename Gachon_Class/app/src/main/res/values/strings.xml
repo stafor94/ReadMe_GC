@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Gachon_Class</string>
+    <string name="app_name">Gachon Class</string>
+    <string name="what_s_on_your_mind">질문을 입력하세요</string>
 </resources>

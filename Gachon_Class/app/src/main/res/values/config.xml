@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Watson Conversation Service Credentials --> 
+    <string name="workspace_id">7bf1eab9-500f-4c6b-8782-4507a5d02783</string> 
+    <string name="conversation_username">eac86c2d-315a-46af-a236-acfaad86d883</string> 
+    <string name="conversation_password">bGupiADqVIgT</string>  
+
+    <!--IBM Cloud Mobile Analytics--> 
+    <string name="mobileanalytics_apikey">6b5997a2-19de-4dbf-a01f-a68e06ebfd98</string>
+</resources>
