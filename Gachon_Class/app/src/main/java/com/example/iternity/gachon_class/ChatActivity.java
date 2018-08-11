@@ -61,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         workspace_id = mContext.getString(R.string.workspace_id);
         analytics_APIKEY = mContext.getString(R.string.mobileanalytics_apikey);
 
+        /*
         // URLConnector
         test = "http://192.168.0.10:8082/PHP_connection.php";
         task = new URLConnector(test);
@@ -77,6 +78,7 @@ public class ChatActivity extends AppCompatActivity {
         String result = task.getResult();
 
         System.out.println(result);
+        */
 
         //IBM Cloud Mobile Analytics
         BMSClient.getInstance().initialize(getApplicationContext(), BMSClient.REGION_SYDNEY);
