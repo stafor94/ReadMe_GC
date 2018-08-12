@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Gachon Class</string>
     <string name="what_s_on_your_mind">질문을 입력하세요</string>
+    <string name="설정">설정</string>
+    <string name="todo">TODO</string>
+    <string name="설정">설정</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="asdasd">asdasd</string>
+    <string name="소리">소리</string>
+    <string name="switch">Switch</string>
 </resources>
