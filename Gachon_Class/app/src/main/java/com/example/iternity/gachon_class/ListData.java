@@ -6,9 +6,22 @@ import java.text.Collator;
 import java.util.Comparator;
 
 public class ListData {
-    public String mStr;
+    private String building;
+    private String num;
 
-    public ListData(String mStr) {
-        this.mStr = mStr;
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
     }
 }
