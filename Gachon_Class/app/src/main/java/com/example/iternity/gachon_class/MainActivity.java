@@ -42,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+        btn_menu_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
 
