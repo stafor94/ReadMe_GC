@@ -38,7 +38,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#ffffff">
 
         <TextView
             android:layout_width="match_parent"
@@ -46,12 +47,11 @@
             android:layout_marginLeft="5dp"
             android:text="알림 설정"
             android:textColor="#b1b1b1"
-            android:textSize="15dp" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff">
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,14 +67,13 @@
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:checked="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
-            android:background="#ffffff">
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,14 +89,13 @@
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:checked="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
-            android:background="#ffffff">
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,14 +111,13 @@
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:checked="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
-            android:background="#ffffff">
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -136,7 +133,8 @@
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:checked="true" />
         </LinearLayout>
 
     </LinearLayout>
@@ -145,127 +143,109 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:background="#ffffff"
-        android:layout_marginTop="5dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="계정 정보"
             android:layout_marginLeft="5dp"
-            android:textSize="15dp"
+            android:text="계정 정보"
             android:textColor="#b1b1b1"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff">
+            android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/Txt_email"
+            android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
             android:text="UserEmail@test.com"
             android:textColor="#666666"
             android:textSize="25sp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:background="#ffffff"
-        android:layout_marginTop="5dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="개발자 문의"
             android:layout_marginLeft="5dp"
-            android:textSize="15dp"
+            android:text="개발자 문의"
             android:textColor="#b1b1b1"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff">
+            android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:text="devEmail@gachon.ac.kr"
             android:textColor="#666666"
             android:textSize="25sp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:background="#ffffff"
-        android:layout_marginTop="5dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="버전 정보"
             android:layout_marginLeft="5dp"
-            android:textSize="15dp"
+            android:text="버전 정보"
             android:textColor="#b1b1b1"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff">
+            android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/Txt_Version"
+            android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:text="v 0.0.0"
             android:textColor="#666666"
             android:textSize="25sp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:background="#ffffff"
-        android:layout_marginTop="5dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="데이터 관리"
             android:layout_marginLeft="5dp"
-            android:textSize="15dp"
+            android:text="데이터 관리"
             android:textColor="#b1b1b1"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff">
+            android:textSize="18sp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:background="#e7e7e7"
-            android:paddingBottom="5dp"
             android:text="사용자 정보 초기화"
             android:textColor="#b1b1b1"
-            android:textSize="15dp" />
+            android:textSize="24sp" />
+
     </LinearLayout>
-
-
 
 
 </LinearLayout>

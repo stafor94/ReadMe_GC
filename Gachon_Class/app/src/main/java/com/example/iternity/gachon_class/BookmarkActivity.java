@@ -2,10 +2,13 @@ package com.example.iternity.gachon_class;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +40,8 @@ public class BookmarkActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "192.168.0.10";
     private static String TAG = "phptest";
     private String mJsonString;
+    final String[] items = {"수업정보 조회", "시간표 조회", "알림설정", "예약문의"};
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,13 +56,27 @@ public class BookmarkActivity extends AppCompatActivity {
         GetData task = new GetData();
         task.execute( "http://" + IP_ADDRESS + "/getjson.php", "");
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // 다이어로그 생성 밑 설정
+        builder = new AlertDialog.Builder(this);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListData mData = mAdapter.mListData.get(position);
-                Toast.makeText(getApplicationContext(), mData.getBuilding() + '-' + mData.getNum(), Toast.LENGTH_LONG).show();
+            public void onClick(DialogInterface dialog, int position) {
+                Toast.makeText(getApplicationContext(), items[position] + " 선택!", Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                        break;
+                    case 1:
+                        Intent myIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
+                        startActivity(myIntent);
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
             }
         });
+        builder.create();
     }
 
     private class ViewHolder {
@@ -92,6 +111,7 @@ public class BookmarkActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
+            final int pos = position;
             if (convertView == null) {
                 holder = new ViewHolder();
 
@@ -106,10 +126,18 @@ public class BookmarkActivity extends AppCompatActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            ListData mData = mListData.get(position);
+            final ListData mData = mListData.get(position);
 
             holder.mBtn.setText(mData.getBuilding() + '-' + mData.getNum());
             holder.mDel.setText("삭제");
+
+            holder.mBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder.setTitle(mData.getBuilding() + '-' + mData.getNum());
+                    builder.show();
+                }
+            });
 
             return convertView;
         }
