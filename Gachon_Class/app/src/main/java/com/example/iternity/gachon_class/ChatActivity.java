@@ -56,29 +56,11 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatbot);
 
         mContext = getApplicationContext();
+        // IBM Watson Config
         conversation_username = mContext.getString(R.string.conversation_username);
         conversation_password = mContext.getString(R.string.conversation_password);
         workspace_id = mContext.getString(R.string.workspace_id);
         analytics_APIKEY = mContext.getString(R.string.mobileanalytics_apikey);
-
-        /*
-        // URLConnector
-        test = "http://192.168.0.10:8082/PHP_connection.php";
-        task = new URLConnector(test);
-
-        task.start();
-
-        try {
-            task.join();
-            System.out.println("waiting... for result");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        String result = task.getResult();
-
-        System.out.println(result);
-        */
 
         //IBM Cloud Mobile Analytics
         BMSClient.getInstance().initialize(getApplicationContext(), BMSClient.REGION_SYDNEY);
@@ -145,34 +127,32 @@ public class ChatActivity extends AppCompatActivity {
     // Sending a message to Watson Conversation Service
     private void sendMessage() {
 
-        final String inputmessage = this.inputMessage.getText().toString().trim();
+        final String inputMsg = this.inputMessage.getText().toString().trim();
         if(!this.initialRequest) {
             Message inputMessage = new Message();
-            inputMessage.setMessage(inputmessage);
+            inputMessage.setMessage(inputMsg);
             inputMessage.setId("1");
             messageArrayList.add(inputMessage);
             myLogger.info("Sending a message to Watson Conversation Service");
-
         }
         else
         {
             Message inputMessage = new Message();
-            inputMessage.setMessage(inputmessage);
+            inputMessage.setMessage(inputMsg);
             inputMessage.setId("100");
             this.initialRequest = false;
-
         }
 
         this.inputMessage.setText("");
         mAdapter.notifyDataSetChanged();
+        recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
 
         Thread thread = new Thread(new Runnable(){
             public void run() {
                 try {
-
                     Conversation service = new Conversation(Conversation.VERSION_DATE_2017_05_26);
                     service.setUsernameAndPassword(conversation_username, conversation_password);
-                    InputData input = new InputData.Builder(inputmessage).build();
+                    InputData input = new InputData.Builder(inputMsg).build();
                     MessageOptions options = new MessageOptions.Builder(workspace_id).input(input).context(context).build();
                     MessageResponse response = service.message(options).execute();
 
@@ -181,7 +161,6 @@ public class ChatActivity extends AppCompatActivity {
                     {
                         //context.clear();
                         context = response.getContext();
-
                     }
                     final Message outMessage=new Message();
                     if(response!=null)
@@ -206,17 +185,15 @@ public class ChatActivity extends AppCompatActivity {
                                 Log.e("context => ", dates + " / " + times + " / " + buildings);
                             }
                             messageArrayList.add(outMessage);
-
                         }
 
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 mAdapter.notifyDataSetChanged();
                                 if (mAdapter.getItemCount() > 1) {
-                                    recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount()-1);
-
+                                    //recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount()-1);
+                                    recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
                                 }
-
                             }
                         });
 
@@ -227,7 +204,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
         thread.start();
-
     }
 
     /**

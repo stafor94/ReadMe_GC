@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="65dp"
             android:layout_marginTop="10dp"
-            android:text="빈 강의실 조회"
+            android:text="가천 Class"
             android:textSize="22dp"
             android:textStyle="bold"
             tools:textColor="#e0ffffff" />
@@ -48,79 +48,145 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/background_light"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnMain01"
-                android:layout_width="100dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="0.5"
-                android:background="#e6e6e6"
-                android:text="강의실 조회"
-                android:textColor="#aba9a9"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
 
-            <Button
-                android:id="@+id/btnMain02"
-                android:layout_width="100dp"
+                <ImageButton
+                    android:id="@+id/btnMain01"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/background_light"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_class" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="강의실 조회"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="0.5"
-                android:background="#e6e6e6"
-                android:text="챗봇"
-                android:textColor="#aba9a9"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnMain02"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/background_light"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_chat"
+                    tools:layout_editor_absoluteX="236dp"
+                    tools:layout_editor_absoluteY="8dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="챗봇"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnMain03"
-                android:layout_width="100dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="0.5"
-                android:background="#e6e6e6"
-                android:text="즐겨찾기"
-                android:textColor="#aba9a9"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
 
-            <Button
-                android:id="@+id/btnMain04"
-                android:layout_width="100dp"
+                <ImageButton
+                    android:id="@+id/btnMain03"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/background_light"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_bookmark"
+                    tools:layout_editor_absoluteX="24dp"
+                    tools:layout_editor_absoluteY="146dp" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="즐겨찾기"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="0.5"
-                android:background="#e6e6e6"
-                android:text="설정"
-                android:textColor="#aba9a9"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnMain04"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/background_light"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_settings"
+                    tools:layout_editor_absoluteX="236dp"
+                    tools:layout_editor_absoluteY="146dp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="설정"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

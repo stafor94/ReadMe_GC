@@ -37,7 +37,7 @@ import java.util.Collections;
 public class BookmarkActivity extends AppCompatActivity {
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
-    private static String IP_ADDRESS = "192.168.0.10";
+    private static String IP_ADDRESS = "192.168.43.111";
     private static String TAG = "phptest";
     private String mJsonString;
     final String[] items = {"수업정보 조회", "시간표 조회", "알림설정", "예약문의"};
