@@ -41,6 +41,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".TimeTableActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".FloorActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

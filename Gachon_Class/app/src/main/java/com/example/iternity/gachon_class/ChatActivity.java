@@ -1,9 +1,11 @@
 package com.example.iternity.gachon_class;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -25,8 +27,16 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
@@ -44,7 +54,8 @@ public class ChatActivity extends AppCompatActivity {
     private String conversation_password;
     private String analytics_APIKEY;
     private Logger myLogger;
-
+    private static String IP_ADDRESS = "192.168.43.111";
+    private String mJsonString;
     private String dates, times, buildings;
 
     String test;
@@ -56,6 +67,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatbot);
 
         mContext = getApplicationContext();
+
         // IBM Watson Config
         conversation_username = mContext.getString(R.string.conversation_username);
         conversation_password = mContext.getString(R.string.conversation_password);
@@ -182,6 +194,12 @@ public class ChatActivity extends AppCompatActivity {
                                 dates = (String)context.get("dates");
                                 times = (String)context.get("times");
                                 buildings = (String)context.get("buildings");
+
+                                // php연결
+                                GetData task = new GetData();
+                                task.execute( "http://" + IP_ADDRESS + "/getjson2.php", "");
+
+                                context.clear();    //context 초기화
                                 Log.e("context => ", dates + " / " + times + " / " + buildings);
                             }
                             messageArrayList.add(outMessage);
@@ -239,6 +257,112 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    private class GetData extends AsyncTask<String, Void, String> {
+        String errorString = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Log.d("TAG", "response - " + result);
+            if (result != null) {
+                mJsonString = result;
+                showResult();
+            }
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            String serverURL = params[0];
+            String postParameters = "country=" + params[1];
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d("TAG", "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+            } catch (Exception e) {
+                Log.d("TAG", "GetData : Error ", e);
+                errorString = e.toString();
+
+                return null;
+            }
+        }
+    }
+
+    private void showResult(){
+        String TAG_JSON="room";
+        String TAG_ClassRoom = "강의실";
+        final Message outMessage=new Message();
+        String myMsg = "[조회 결과]\n";
+
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+            for(int i=0; i<jsonArray.length(); i++){
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String classRoom = item.getString(TAG_ClassRoom);
+
+                Log.d("TAG", "item: " + classRoom);
+                myMsg = myMsg + classRoom;
+                if (i != jsonArray.length() - 1) {
+                    myMsg = myMsg + " / ";
+                }
+
+            }
+            outMessage.setMessage(myMsg);
+            outMessage.setId("2");
+            messageArrayList.add(outMessage);
+            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+        } catch (JSONException e) {
+            Log.d("TAG", "showResult : ", e);
+        }
+
+    }
 
 }
 

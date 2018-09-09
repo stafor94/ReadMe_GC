@@ -6,15 +6,27 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class SearchActivity extends AppCompatActivity {
-    AlertDialog.Builder builder[] = new AlertDialog.Builder[9];
-    Button btnSearch[] = new Button[9];
-    int topFloor[] = {};
-    int bottomFloor[] = {};
-    final String[] items = {"5F", "4F", "3F", "2F", "1F", "B1F", "B2F", "B3F"};
+public class SearchActivity extends AppCompatActivity implements OnClickListener {
+    AlertDialog.Builder[] builder = new AlertDialog.Builder[11];
+    Button[] btnSearch = new Button[11];
+    final String[][] items = {
+            {"9F", "8F", "7F","6F", "5F", "4F", "3F", "2F", "1F", "B1F"},  //가천관
+            {"6F", "5F", "4F", "3F", "2F", "1F", "B1F", "B2F"},  //비전타워
+            {"5F", "4F", "3F", "2F", "1F"}, //공과대학1
+            {"5F", "4F", "3F", "2F", "1F"}, //공과대학2
+            {"4F", "3F", "2F", "1F", "B1F", "B2F"}, //바이오나노대학
+            {"5F", "4F", "3F", "2F", "1F"}, //한의과대학
+            {"6F", "5F", "4F", "3F", "2F", "1F"},   //IT대학
+            {"5F", "4F", "3F", "2F", "1F"}, //예술대학1
+            {"5F", "4F", "3F", "2F", "1F"}, //예술대학2
+            {"6F", "5F", "4F", "3F", "2F", "1F"},   //글로벌센터
+            {"5F", "4F", "3F", "2F", "1F"}  //교육대학원
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,15 +46,34 @@ public class SearchActivity extends AppCompatActivity {
         btnSearch[6] = (Button) findViewById(R.id.btnSearch07);
         btnSearch[7] = (Button) findViewById(R.id.btnSearch08);
         btnSearch[8] = (Button) findViewById(R.id.btnSearch09);
+        btnSearch[9] = (Button) findViewById(R.id.btnSearch10);
+        btnSearch[10] = (Button) findViewById(R.id.btnSearch11);
 
         // 다이어로그 생성 밑 설정
-        builder[0] = new AlertDialog.Builder(this);
-        builder[0].setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int position) {
-                Toast.makeText(getApplicationContext(), items[position] + " 선택!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder[0].create();
+        for (int i = 0; i < 11; i++) {
+            final int no = i;
+            builder[i] = new AlertDialog.Builder(this);
+
+            builder[i].setItems(items[i], new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int position) {
+                    Toast.makeText(getApplicationContext(), btnSearch[no].getText().toString() + " " +items[no][position] + " 선택!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder[i].create();
+            btnSearch[i].setTag(i);
+            btnSearch[i].setOnClickListener(this);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        // 클릭한 버튼을 저장
+        Button b = (Button)v;
+        // 클릭한 버튼의 tag정보를 가져옴
+        int tag = Integer.parseInt(v.getTag().toString());
+        // 다이얼로그의 제목 지정
+        builder[tag].setTitle(b.getText().toString());
+        builder[tag].show();
     }
 }
