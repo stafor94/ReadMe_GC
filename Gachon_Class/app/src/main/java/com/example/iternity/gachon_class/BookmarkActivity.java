@@ -156,7 +156,6 @@ public class BookmarkActivity extends AppCompatActivity {
     }
 
     private class GetData extends AsyncTask<String, Void, String> {
-
         ProgressDialog progressDialog;
         String errorString = null;
 
@@ -167,7 +166,6 @@ public class BookmarkActivity extends AppCompatActivity {
             progressDialog = ProgressDialog.show(BookmarkActivity.this,
                     "Please Wait", null, true, true);
         }
-
 
         @Override
         protected void onPostExecute(String result) {

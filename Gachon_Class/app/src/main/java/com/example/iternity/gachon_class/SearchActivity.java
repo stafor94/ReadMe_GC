@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -57,6 +58,11 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
             builder[i].setItems(items[i], new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int position) {
+                    Intent myIntent = new Intent(getApplicationContext(), FloorActivity.class);
+                    myIntent.putExtra("building", btnSearch[no].getText().toString());
+                    myIntent.putExtra("floor", items[no][position]);
+                    startActivity(myIntent);
+
                     Toast.makeText(getApplicationContext(), btnSearch[no].getText().toString() + " " +items[no][position] + " 선택!", Toast.LENGTH_SHORT).show();
                 }
             });
