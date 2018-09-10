@@ -79,6 +79,11 @@ public class FloorActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), items[position] + " 선택!", Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
+                        // 커스텀 다이얼로그를 생성한다. 사용자가 만든 클래스이다.
+                        CustomDialog customDialog = new CustomDialog(FloorActivity.this);
+
+                        // 커스텀 다이얼로그를 호출한다.
+                        customDialog.callFunction();
                         break;
                     case 1:
                         Intent myIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
