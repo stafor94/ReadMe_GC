@@ -40,8 +40,9 @@ public class BookmarkActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "192.168.43.111";
     private static String TAG = "phptest";
     private String mJsonString;
-    final String[] items = {"수업정보 조회", "시간표 조회", "알림설정", "예약문의"};
+    final String[] items = {"시간표 조회", "알림설정", "예약문의"};
     AlertDialog.Builder builder;
+    private String nowSelect = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,14 +65,13 @@ public class BookmarkActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), items[position] + " 선택!", Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
+                        Intent mIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
+                        mIntent.putExtra("lectureRoom", nowSelect);
+                        startActivity(mIntent);
                         break;
                     case 1:
-                        Intent myIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
-                        startActivity(myIntent);
                         break;
                     case 2:
-                        break;
-                    case 3:
                         break;
                 }
             }

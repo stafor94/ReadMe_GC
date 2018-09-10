@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -40,11 +38,11 @@ public class FloorActivity extends AppCompatActivity {
     private MyAdapter mAdapter = null;
     private static String IP_ADDRESS = "192.168.43.111";
     private String mJsonString;
-    private String building, floor;
+    private String building, floor, lectureRoom;
     Intent myIntent;
     URLConnector task;
     AlertDialog.Builder builder;
-    final String[] items = {"수업정보 조회", "시간표 조회", "알림설정", "예약문의"};
+    final String[] items = {"시간표 조회", "알림설정", "예약문의", "즐겨찾기 등록"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +77,11 @@ public class FloorActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), items[position] + " 선택!", Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
-                        // 커스텀 다이얼로그를 생성한다. 사용자가 만든 클래스이다.
-                        CustomDialog customDialog = new CustomDialog(FloorActivity.this);
-
-                        // 커스텀 다이얼로그를 호출한다.
-                        customDialog.callFunction();
+                        Intent mIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
+                        mIntent.putExtra("lectureRoom", lectureRoom);
+                        startActivity(mIntent);
                         break;
                     case 1:
-                        Intent myIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
-                        startActivity(myIntent);
                         break;
                     case 2:
                         break;
@@ -274,6 +268,7 @@ public class FloorActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     builder.setTitle(myItem.getName());
+                    lectureRoom = myItem.getName();
                     builder.show();
                 }
             });
