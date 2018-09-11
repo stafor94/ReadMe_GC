@@ -112,6 +112,9 @@ public class FloorActivity extends AppCompatActivity {
             if (result != null) {
                 mJsonString = result;
                 showResult();
+            } else {
+                Toast.makeText(getApplicationContext(),"서버와 연결이 원활하지 않습니다.", Toast.LENGTH_LONG).show();
+                finish();
             }
         }
 
@@ -132,8 +135,8 @@ public class FloorActivity extends AppCompatActivity {
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-                httpURLConnection.setReadTimeout(5000); //5초안에 응답이 오지 않으면 예외가 발생합니다.
-                httpURLConnection.setConnectTimeout(5000); //5초안에 연결이 안되면 예외가 발생합니다.
+                httpURLConnection.setReadTimeout(4000); //4초안에 응답이 오지 않으면 예외가 발생합니다.
+                httpURLConnection.setConnectTimeout(4000); //4초안에 연결이 안되면 예외가 발생합니다.
                 httpURLConnection.setRequestMethod("POST"); //요청 방식을 POST로 합니다.
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();

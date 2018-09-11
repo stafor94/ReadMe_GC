@@ -274,6 +274,8 @@ public class ChatActivity extends AppCompatActivity {
             if (result != null) {
                 mJsonString = result;
                 showResult();
+            } else {
+                Toast.makeText(getApplicationContext(),"서버와 연결이 원활하지 않습니다.", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -288,8 +290,8 @@ public class ChatActivity extends AppCompatActivity {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setReadTimeout(4000);
+                httpURLConnection.setConnectTimeout(4000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
