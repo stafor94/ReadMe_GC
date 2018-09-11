@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -97,7 +98,11 @@ public class TimeTableActivity extends AppCompatActivity {
         TextView tv = new TextView(this);
         tv.setText(lecture.getSubject());   // 강의명
         tv.setBackgroundColor(colors[colorCnt++ % 9]);  // 배경색 지정 (index 0~8)
-        tv.setGravity(Gravity.CENTER_VERTICAL); // TextView 정렬
+        tv.setGravity(Gravity.CENTER); // TextView 정렬
+        // 오버되는 글씨는 흐르게하기
+        tv.setSelected(true);
+        tv.setSingleLine(true);
+        tv.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         param.gravity = Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
         tv.setLayoutParams(param);
         tv.setHeight(calcHeight);    // TextView 높이 지정
