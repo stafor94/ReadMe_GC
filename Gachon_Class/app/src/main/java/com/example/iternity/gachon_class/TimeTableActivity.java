@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -32,14 +33,16 @@ public class TimeTableActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "192.168.43.111";
     private String mJsonString;
     final String TAG = "ReadMe";
-    int[] lastTime = {0, 0, 0, 0, 0};    // 각 요일별 입력된 마지막 시간을 담는 변수
+    float[] lastTime = {1.f, 1.f, 1.f, 1.f, 1.f};    // 각 요일별 입력된 마지막 시간을 담는 변수
 
-    int[] colors = {Color.rgb(0,0,0), Color.rgb(100,0,0), Color.rgb(0,100,0),
-            Color.rgb(0,0,100), Color.rgb(50,50,0), Color.rgb(0,50,50),
-            Color.rgb(50,0,50), Color.rgb(200,100,0), Color.rgb(100,0,200)};
+    int[] colors = {Color.rgb(50,50,50), Color.rgb(150,0,0), Color.rgb(0,150,0),
+            Color.rgb(0,0,150), Color.rgb(100,100,0), Color.rgb(0,100,100),
+            Color.rgb(100,0,100), Color.rgb(250,150,0), Color.rgb(150,0,250)};
     int colorCnt = 0;
 
     ArrayList<Lecture> lectures = new ArrayList<>();
+    ArrayList<Lecture> tempList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,9 +57,6 @@ public class TimeTableActivity extends AppCompatActivity {
         GetData task = new GetData();
         task.execute( "http://" + IP_ADDRESS + "/getjson4.php", lectureRoom);
 
-        init();
-    }
-    public void init() {
         layout[0] = (LinearLayout) findViewById(R.id.layout_mon);
         layout[1] = (LinearLayout) findViewById(R.id.layout_tue);
         layout[2] = (LinearLayout) findViewById(R.id.layout_wed);
@@ -66,54 +66,45 @@ public class TimeTableActivity extends AppCompatActivity {
 
     public void fillTable(Lecture lecture) {
         float mScale = getResources().getDisplayMetrics().density;
-        float alphaLen;
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
         String time = lecture.getTime();
+        String[] times = time.split(" ");  // 각 강의시간을 문자열로 나눈다
+        float start, end;   // 강의 시작시간, 마지막시간
+        int calcHeight;  // textView 높이
+        //월 1234 월 D,E = 6, 7.5 월 10,11,12,13
+        // 수업 시작시간과 종료시간을 소수로 변환
+        if (isNumeric(times[0].substring(1))) { // 숫자 교시
+            start = Float.parseFloat(times[0].substring(1));
+            end = Float.parseFloat(times[times.length - 1].substring(1));
+            calcHeight = (int) ((end - start + 1.f) * 60.25f * mScale);
+            param.topMargin = (int) ((start - lastTime[getDayCode(time)]) * 60.25f * mScale);
+            if (start > 8) {    // 8교시 이후이면
+                calcHeight = (int) ((end - start + 1.f) * 55.23f * mScale);  // 강의시간 (50 + 5)분
+                param.topMargin += (int) (0.5f * 60.25f * mScale);  // 30분 텀 추가
+            }
+            lastTime[getDayCode(time)] = end + 1.f;
+        } else {    // 알파벳 교시
+            start = convertTime(times[0].substring(1));
+            end = convertTime(times[times.length - 1].substring(1));
+            calcHeight = (int) ((end - start + 1.5f) * 60.25f * mScale);
+            param.topMargin = (int) ((start - lastTime[getDayCode(time)]) * 60.25f * mScale);
+            lastTime[getDayCode(time)] = end + 1.5f;
+        }
+
         TextView tv = new TextView(this);
-        tv.setText(lecture.getSubject());
-        tv.setBackgroundColor(colors[colorCnt++]);
-        if(colorCnt == colors.length)
-            colorCnt = 0;   // 색상의 index를 바꾼다
-
-        String[] times = time.split(" ,");  // 각 강의시간을 2자리 문자열로 나눈다
-        String start = times[0].substring(1);    // 강의 시작시간
-        String end = times[times.length - 1].substring(1);   // 강의 마지막시간
-
-        int len;    // 강의시간 길이
-        int calHeight;  // textView 높이
-
-        if (isNumeric(start) && isNumeric(end)) {
-            param.topMargin = (int) ((Integer.parseInt(start) - 1 - lastTime[getDayCode(time)]) * 60 * mScale);
-            len = Integer.parseInt(end) - Integer.parseInt(start) + 1; // 강의시간 길이
-            calHeight = (int)(len * 60 * mScale);  // pixel -> dp 변환
-            lastTime[getDayCode(time)] = Integer.parseInt(end); // 해당 요일에 현재까지 만들어진 마지막 시간
-        } else if(start.contains("A")){
-            alphaLen = 1.5f;
-            lastTime[getDayCode(time)] = 2; // 해당 요일에 현재까지 만들어진 마지막 시간
-            if (start.contains("B")) {
-                alphaLen += 1.5f;
-                lastTime[getDayCode(time)] = 3; // 해당 요일에 현재까지 만들어진 마지막 시간
-            }
-            calHeight = (int) (alphaLen * 60 * mScale);
-        } else if(start.contains("D")) {
-            alphaLen = 1.5f;
-            lastTime[getDayCode(time)] = 6; // 해당 요일에 현재까지 만들어진 마지막 시간
-            if (start.contains("E")) {
-                alphaLen += 1.5f;
-                lastTime[getDayCode(time)] = 8; // 해당 요일에 현재까지 만들어진 마지막 시간
-            }
-            calHeight = (int) (alphaLen * 60 * mScale);
-        } else
-            return;
-
+        tv.setText(lecture.getSubject());   // 강의명
+        tv.setBackgroundColor(colors[colorCnt++ % 9]);  // 배경색 지정 (index 0~8)
+        tv.setGravity(Gravity.CENTER_VERTICAL); // TextView 정렬
+        param.gravity = Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
         tv.setLayoutParams(param);
-        tv.setHeight(calHeight);    // textView 높이 지정
+        tv.setHeight(calcHeight);    // TextView 높이 지정
         layout[getDayCode(time)].addView(tv);
     }
 
+    // 해당 문자열이 숫자인지 문자인지 구분해주는 메소드
     public static boolean isNumeric(String s) {
         try {
             Double.parseDouble(s);
@@ -121,6 +112,16 @@ public class TimeTableActivity extends AppCompatActivity {
         } catch(NumberFormatException e) {
             return false;
         }
+    }
+
+    // A~E교시를 소수로 바꾸어 주는 메소드
+    public float convertTime(String s) {
+        if (s.equals("A")) return 1.5f;
+        else if (s.equals("B")) return 3.0f;
+        else if (s.equals("C")) return 4.5f;
+        else if (s.equals("D")) return 6.0f;
+        else if (s.equals("E")) return 7.5f;
+        else return 0;
     }
 
     public int getDayCode(String time) {
@@ -235,16 +236,43 @@ public class TimeTableActivity extends AppCompatActivity {
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject item = jsonArray.getJSONObject(i);
-                lectures.add(new Lecture(item.getString("학수번호"), item.getString("강의명"), item.getString("교수"), item.getString("강의시간")));
-                fillTable(lectures.get(i));
+                tempList.add(new Lecture(item.getString("학수번호"), item.getString("강의명"), item.getString("교수"), item.getString("강의시간")));
 
                 Log.d(TAG, "item: " + item.getString("학수번호") + " - " + item.getString("강의명") + " - " + item.getString("강의시간") + " - " + item.getString("교수"));
             }
-            fillTable(lectures.get(0));
+            sortList();
+            for (int i = 0; i < lectures.size(); i++)
+                fillTable(lectures.get(i));
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
 
+    }
+
+    // 알파벳과 숫자를 비교하기 어려움
+    // 요일과 시간순으로 ArrayList를 정렬하는 메소드
+    private void sortList() {
+        String[] times = {"1", "A", "2", "3", "B", "4", "C", "5", "6", "D", "7", "E", "8", "9", "10", "11", "12", "13", "14"};
+        String[] days = {"월", "화", "수", "목", "금"};
+
+        for (int i = 0; i < days.length; i++) { // 월~금요일
+            for (int j = 0; j < times.length; j++) { // 1 ~ 13교시
+                for (int k = 0; k < tempList.size(); k++) { // tempList 목록을 전부 순회
+                    int day = getDayCode(tempList.get(k).getTime()); // 요일
+                    String time = tempList.get(k).getTime().split(" ")[0].substring(1); // 시작 시간
+
+                    if (day == i && time.equals(times[j])) {
+                        Log.d(TAG, "temp = " + tempList.get(k).getSubject());
+                        lectures.add(tempList.get(k));  // lectures에 추가한다
+
+                        tempList.remove(k); // tempList에서 제거한다
+
+                        break;
+                    }
+                }
+                Log.d(TAG, "SIZE = " + tempList.size());
+            }
+        }
     }
 
     private class Lecture {

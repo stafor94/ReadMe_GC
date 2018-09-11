@@ -50,9 +50,9 @@
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
                     android:textSize="20sp" />
 
                 <TextView
@@ -61,7 +61,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="09"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -72,7 +71,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="10"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -83,7 +81,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="11"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -94,7 +91,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="12"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -105,7 +101,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="13"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -116,7 +111,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="14"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -127,7 +121,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="15"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -138,7 +131,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="16"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -149,7 +141,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="17"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -160,7 +151,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="18"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -171,7 +161,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="19"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -182,7 +171,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="20"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -193,7 +181,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="21"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -204,7 +191,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="22"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -215,7 +201,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
-                    android:padding="5dp"
                     android:text="23"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -236,60 +221,60 @@
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border"
-                        android:gravity="center_horizontal"
-                        android:padding="5dp"
+                        android:gravity="center_vertical"
                         android:text="월"
+                        android:textAlignment="center"
                         android:textColor="#000"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/textView13"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border"
-                        android:gravity="center_horizontal"
-                        android:padding="5dp"
+                        android:gravity="center_vertical"
                         android:text="화"
+                        android:textAlignment="center"
                         android:textColor="#000"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border"
-                        android:gravity="center_horizontal"
-                        android:padding="5dp"
+                        android:gravity="center_vertical"
                         android:text="수"
+                        android:textAlignment="center"
                         android:textColor="#000"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/textView15"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border"
-                        android:gravity="center_horizontal"
-                        android:padding="5dp"
+                        android:gravity="center_vertical"
                         android:text="목"
+                        android:textAlignment="center"
                         android:textColor="#000"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/textView16"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border"
-                        android:gravity="center_horizontal"
-                        android:padding="5dp"
+                        android:gravity="center_vertical"
                         android:text="금"
+                        android:textAlignment="center"
                         android:textColor="#000"
                         android:textSize="20sp" />
 
@@ -307,7 +292,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/border"
-                        android:orientation="vertical" />
+                        android:orientation="vertical">
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layout_tue"
