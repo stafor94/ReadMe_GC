@@ -98,14 +98,24 @@ public class TimeTableActivity extends AppCompatActivity {
         TextView tv = new TextView(this);
         tv.setText(lecture.getSubject());   // 강의명
         tv.setBackgroundColor(colors[colorCnt++ % 9]);  // 배경색 지정 (index 0~8)
+        tv.setTextColor(Color.WHITE);   // 글자색 지정
         tv.setGravity(Gravity.CENTER); // TextView 정렬
+
         // 오버되는 글씨는 흐르게하기
         tv.setSelected(true);
         tv.setSingleLine(true);
         tv.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+
         param.gravity = Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
         tv.setLayoutParams(param);
         tv.setHeight(calcHeight);    // TextView 높이 지정
+        final Lecture lecture1 = lecture;
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetail(lecture1);
+            }
+        });
         layout[getDayCode(time)].addView(tv);
     }
 
@@ -138,12 +148,17 @@ public class TimeTableActivity extends AppCompatActivity {
         else return 0;
     }
 
-    public void showDetail() {
+    public void showDetail(Lecture lecture) {
+        String academicNum, subject, time, professor;
         // 커스텀 다이얼로그를 생성한다. 사용자가 만든 클래스이다.
         CustomDialog customDialog = new CustomDialog(TimeTableActivity.this);
 
+        academicNum = lecture.getAcademicNum();
+        subject = lecture.getSubject();
+        time = lecture.getTime();
+        professor = lecture.getProfessor();
         // 커스텀 다이얼로그를 호출한다.
-        customDialog.callFunction();
+        customDialog.callFunction(academicNum, subject, time, professor);
     }
 
     private class GetData extends AsyncTask<String, Void, String> {
@@ -242,8 +257,6 @@ public class TimeTableActivity extends AppCompatActivity {
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject item = jsonArray.getJSONObject(i);
                 tempList.add(new Lecture(item.getString("학수번호"), item.getString("강의명"), item.getString("교수"), item.getString("강의시간")));
-
-                Log.d(TAG, "item: " + item.getString("학수번호") + " - " + item.getString("강의명") + " - " + item.getString("강의시간") + " - " + item.getString("교수"));
             }
             sortList();
             for (int i = 0; i < lectures.size(); i++)
@@ -267,15 +280,11 @@ public class TimeTableActivity extends AppCompatActivity {
                     String time = tempList.get(k).getTime().split(" ")[0].substring(1); // 시작 시간
 
                     if (day == i && time.equals(times[j])) {
-                        Log.d(TAG, "temp = " + tempList.get(k).getSubject());
                         lectures.add(tempList.get(k));  // lectures에 추가한다
-
                         tempList.remove(k); // tempList에서 제거한다
-
                         break;
                     }
                 }
-                Log.d(TAG, "SIZE = " + tempList.size());
             }
         }
     }

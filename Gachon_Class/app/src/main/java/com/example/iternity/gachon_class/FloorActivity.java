@@ -43,6 +43,7 @@ public class FloorActivity extends AppCompatActivity {
     URLConnector task;
     AlertDialog.Builder builder;
     final String[] items = {"시간표 조회", "알림설정", "예약문의", "즐겨찾기 등록"};
+    DBHelper_Bookmark dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,9 @@ public class FloorActivity extends AppCompatActivity {
         /* 리스트뷰에 어댑터 등록 */
         mAdapter = new MyAdapter(this);
         mListView.setAdapter(mAdapter);
+
+        // DBHelper
+        dbHelper = new DBHelper_Bookmark(getApplicationContext());
 
         /* 건물명, 층 수 받기 */
         myIntent = getIntent();
@@ -74,7 +78,6 @@ public class FloorActivity extends AppCompatActivity {
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position) {
-                Toast.makeText(getApplicationContext(), items[position] + " 선택!", Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
                         Intent mIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
@@ -86,6 +89,12 @@ public class FloorActivity extends AppCompatActivity {
                     case 2:
                         break;
                     case 3:
+                        if (!dbHelper.isExist(lectureRoom)) {   // 중복된 강의실이 아니면
+                            dbHelper.insert(lectureRoom);   // DB에 추가한다
+                            Toast.makeText(getApplicationContext(), "즐겨찾기에 등록했습니다!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "이미 등록한 강의실 입니다.", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                 }
             }

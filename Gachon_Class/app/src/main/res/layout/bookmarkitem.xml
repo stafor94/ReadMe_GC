@@ -8,28 +8,13 @@
     android:weightSum="1">
 
 
-    <LinearLayout
-        android:id="@+id/bookmarkLayout"
+    <Button
+        android:id="@+id/bookmarkClassroom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="10dp"
+        android:background="#aaa"
+        android:text="00대학 - 000호"
+        android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/bookmarkClassroom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#a3eca2"
-            android:text="00대학 - 000호"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/bookmarkItemDel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="#ff7777"
-            android:textSize="20sp" />
-    </LinearLayout>
 </LinearLayout>

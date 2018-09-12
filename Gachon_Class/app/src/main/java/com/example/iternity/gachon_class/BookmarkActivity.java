@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,18 +32,18 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class BookmarkActivity extends AppCompatActivity {
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
-    private static String IP_ADDRESS = "192.168.43.111";
-    private static String TAG = "phptest";
-    private String mJsonString;
-    final String[] items = {"시간표 조회", "알림설정", "예약문의"};
+    final String[] items = {"시간표 조회", "알림설정", "예약문의", "즐겨찾기 취소"};
     AlertDialog.Builder builder;
     private String nowSelect = null;
+
+    DBHelper_Bookmark dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,15 +55,14 @@ public class BookmarkActivity extends AppCompatActivity {
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
-        GetData task = new GetData();
-        task.execute( "http://" + IP_ADDRESS + "/getjson.php", "");
+        dbHelper = new DBHelper_Bookmark(getApplicationContext());
+        getBookmarkList();
 
         // 다이어로그 생성 밑 설정
         builder = new AlertDialog.Builder(this);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position) {
-                Toast.makeText(getApplicationContext(), items[position] + " 선택!", Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
                         Intent mIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
@@ -73,6 +73,11 @@ public class BookmarkActivity extends AppCompatActivity {
                         break;
                     case 2:
                         break;
+                    case 3:
+                        if (nowSelect != null)
+                            dbHelper.delete(nowSelect); // 해당 강의실을 북마크에서 삭제한다
+                            getBookmarkList();
+                        break;
                 }
             }
         });
@@ -81,12 +86,11 @@ public class BookmarkActivity extends AppCompatActivity {
 
     private class ViewHolder {
         public Button mBtn;
-        public Button mDel;
     }
 
     private class ListViewAdapter extends BaseAdapter {
         private Context mContext = null;
-        private ArrayList<ListData> mListData = new ArrayList<ListData>();
+        private ArrayList<String> mListData = new ArrayList<String>();
 
         public ListViewAdapter(Context mContext) {
             super();
@@ -119,22 +123,24 @@ public class BookmarkActivity extends AppCompatActivity {
                 convertView = inflater.inflate(R.layout.bookmarkitem, null);
 
                 holder.mBtn = (Button) convertView.findViewById(R.id.bookmarkClassroom);
-                holder.mDel = (Button) convertView.findViewById(R.id.bookmarkItemDel);
 
                 convertView.setTag(holder);
-            }else{
+            } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            final ListData mData = mListData.get(position);
+            final String mData = mListData.get(position);
+            if (mData.equals("")) {
+                Toast.makeText(getApplicationContext(), "등록된 강의실이 없습니다!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
-            holder.mBtn.setText(mData.getBuilding() + '-' + mData.getNum());
-            holder.mDel.setText("삭제");
-
+            holder.mBtn.setText(mData);
             holder.mBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    builder.setTitle(mData.getBuilding() + '-' + mData.getNum());
+                    nowSelect = mData;  // 클릭한 강의실 이름을 저장
+                    builder.setTitle(mData);
                     builder.show();
                 }
             });
@@ -142,125 +148,29 @@ public class BookmarkActivity extends AppCompatActivity {
             return convertView;
         }
 
-        public void addItem(String building, String num){
-            ListData addInfo = new ListData();
-            addInfo.setBuilding(building);
-            addInfo.setNum(num);
-
+        public void addItem(String lectureRoom){
+            String addInfo = lectureRoom;
             mListData.add(addInfo);
         }
 
         public void remove(int position){
             mListData.remove(position);
         }
+
+        public void clear() { mListData.clear(); }
     }
 
-    private class GetData extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
-        String errorString = null;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(BookmarkActivity.this,
-                    "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-            Log.d(TAG, "response - " + result);
-
-            if (result != null) {
-                mJsonString = result;
-                showResult();
-            } else {
-                Toast.makeText(getApplicationContext(),"서버와 연결이 원활하지 않습니다.", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            String serverURL = params[0];
-            String postParameters = "country=" + params[1];
-
-            try {
-
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                httpURLConnection.setReadTimeout(4000);
-                httpURLConnection.setConnectTimeout(4000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoInput(true);
-                httpURLConnection.connect();
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-
-                bufferedReader.close();
-
-                return sb.toString().trim();
-            } catch (Exception e) {
-                Log.d(TAG, "GetData : Error ", e);
-                errorString = e.toString();
-
-                return null;
-            }
-        }
-    }
-
-    private void showResult(){
-        String TAG_JSON="room";
-        String TAG_BUILDING = "building";
-        String TAG_NUM ="num";
-
+    // SQLite에 저장된 북마크 정보를 리스트뷰로 가져와 보여준다
+    private void getBookmarkList() {
         try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-
-            for(int i=0; i<jsonArray.length(); i++){
-                JSONObject item = jsonArray.getJSONObject(i);
-
-                String building = item.getString(TAG_BUILDING);
-                String num = item.getString(TAG_NUM);
-
-                Log.d(TAG, "item: " + building + '-' + num);
-                mAdapter.addItem(building, num);
+            mAdapter.clear();   // ArrayList를 초기화한다.
+            String[] lectureRoom = dbHelper.getResult().split(","); // SQLite에서 ","를 구분자로하여 북마크 등록된 강의실을 불러온다.
+            for (int i = 0; i < lectureRoom.length; i++) {  // 각 강의실을 추가한다
+                mAdapter.addItem(lectureRoom[i]);
                 mAdapter.notifyDataSetChanged();
             }
-        } catch (JSONException e) {
-            Log.d(TAG, "showResult : ", e);
+        } catch (SQLiteException e) {
+            e.printStackTrace();
         }
-
     }
 }
