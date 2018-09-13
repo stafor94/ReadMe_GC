@@ -200,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:background="#f2eded"
                 android:paddingBottom="5dp"
-                android:text="개인정보 취급 및 설명"
+                android:text="COPYRIGHTS ⓒ README. ALL RIGHTS RESERVED."
                 android:textColor="#aba9a9" />
         </LinearLayout>
 

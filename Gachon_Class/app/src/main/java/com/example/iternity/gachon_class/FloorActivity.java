@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -201,7 +202,6 @@ public class FloorActivity extends AppCompatActivity {
 
         String DoW = getDayOfWeek();    // 현재요일
         int CT = getCurrentTime();  // 현재시간
-        CT += 900;
         Log.d("ReadMe", "CT = " + CT);
         int[] mTimes;   // 시작시간과 종료시간을 담을 변수
 

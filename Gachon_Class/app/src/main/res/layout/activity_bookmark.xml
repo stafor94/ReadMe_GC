@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -28,8 +29,8 @@
             android:layout_marginLeft="85dp"
             android:layout_marginTop="10dp"
             android:text="즐겨찾기"
-            android:textStyle="bold"
             android:textSize="25dp"
+            android:textStyle="bold"
             tools:textColor="#e0ffffff" />
 
     </LinearLayout>
@@ -38,7 +39,23 @@
         android:id="@+id/listBookmark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f2eded"
+            android:paddingBottom="5dp"
+            android:text="COPYRIGHTS ⓒ README. ALL RIGHTS RESERVED."
+            android:textColor="#aba9a9" />
+    </LinearLayout>
 
 
 </LinearLayout>

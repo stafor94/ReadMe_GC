@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -55,6 +56,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="빈 강의실"
+            android:textColor="@android:color/background_dark"
             android:textStyle="bold" />
 
         <ImageView
@@ -72,6 +74,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="강의 중"
+            android:textColor="@android:color/background_dark"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -79,6 +82,22 @@
     <ListView
         android:id="@+id/listFloor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/btnMainManual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f2eded"
+            android:paddingBottom="5dp"
+            android:text="COPYRIGHTS ⓒ README. ALL RIGHTS RESERVED."
+            android:textColor="#aba9a9" />
+    </LinearLayout>
 
 </LinearLayout>

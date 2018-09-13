@@ -48,6 +48,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/background_light"
         android:gravity="fill_vertical"
         android:orientation="vertical">
 
@@ -61,10 +62,12 @@
                 android:id="@+id/btnSearch01"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="가천관"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -73,9 +76,13 @@
                 android:id="@+id/btnSearch02"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="비전타워"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -83,10 +90,12 @@
                 android:id="@+id/btnSearch03"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="공과대학1"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -101,10 +110,12 @@
                 android:id="@+id/btnSearch04"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="공과대학2"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -112,9 +123,13 @@
                 android:id="@+id/btnSearch05"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="바이오나노대학"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -122,10 +137,12 @@
                 android:id="@+id/btnSearch06"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="한의과대학"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -140,10 +157,12 @@
                 android:id="@+id/btnSearch07"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="IT대학"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -151,9 +170,13 @@
                 android:id="@+id/btnSearch08"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="예술대학1"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -161,10 +184,12 @@
                 android:id="@+id/btnSearch09"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="예술대학2"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -179,10 +204,12 @@
                 android:id="@+id/btnSearch10"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="글로벌센터"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -190,9 +217,11 @@
                 android:id="@+id/btnSearch11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="#323232"
                 android:text="교육대학원"
-                android:textColor="#aba9a9"
+                android:textColor="#fff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -209,7 +238,7 @@
                 android:layout_height="wrap_content"
                 android:background="#f2eded"
                 android:paddingBottom="5dp"
-                android:text="개인정보 취급 및 설명"
+                android:text="COPYRIGHTS ⓒ README. ALL RIGHTS RESERVED."
                 android:textColor="#aba9a9" />
         </LinearLayout>
 
