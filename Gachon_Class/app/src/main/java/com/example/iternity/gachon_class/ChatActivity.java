@@ -54,10 +54,11 @@ public class ChatActivity extends AppCompatActivity {
     private String conversation_password;
 //    private String analytics_APIKEY;
     private Logger myLogger;
-    private static String IP_ADDRESS = "192.168.43.111";
+    private static String IP_ADDRESS = "stafor.cafe24.com";
     private String mJsonString;
     private String dates, times, buildings;
 
+    MyTimer myTimer;
     String test;
     URLConnector task;
 
@@ -191,16 +192,25 @@ public class ChatActivity extends AppCompatActivity {
                                     outMessage.setId("2");
                             }
                             if (context.get("dates") != null && context.get("times") != null && context.get("buildings") != null) {
+                                myTimer = new MyTimer();
                                 dates = (String)context.get("dates");
                                 times = (String)context.get("times");
                                 buildings = (String)context.get("buildings");
 
                                 // php연결
                                 GetData task = new GetData();
-                                task.execute( "http://" + IP_ADDRESS + "/getjson2.php", "");
+                                Log.d("ReadMe", "time = " + myTimer.matchTime(times));
+                                if (myTimer.matchTime(times).contains("/")) {   // 강의시간이 2개가 겹치면
+                                    String[] mTimes = myTimer.matchTime(times).split("/");
+                                    Log.d("ReadMe", "length = " + mTimes.length);
+                                    task.execute( "http://" + IP_ADDRESS + "/getjson2.php", buildings, mTimes[0], mTimes[1], myTimer.getChatDow(dates));
+                                    Log.d("ReadMe", "result = " + buildings + " + "  + mTimes[0] + " + "  + mTimes[1] + " + " + myTimer.getChatDow(dates));
+                                } else {
+                                    task.execute( "http://" + IP_ADDRESS + "/getjson2.php", buildings, myTimer.matchTime(times), "x", myTimer.getChatDow(dates));
+                                }
 
                                 context.clear();    //context 초기화
-                                Log.e("context => ", dates + " / " + times + " / " + buildings);
+                                Log.e("ReadMe", "Context = > "  + dates + " / " + times + " / " + buildings);
                             }
                             messageArrayList.add(outMessage);
                         }
@@ -265,12 +275,11 @@ public class ChatActivity extends AppCompatActivity {
             super.onPreExecute();
         }
 
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            Log.d("TAG", "response - " + result);
+            Log.d("ReadMe", "response - " + result);
             if (result != null) {
                 mJsonString = result;
                 showResult();
@@ -279,12 +288,12 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
 
-
         @Override
         protected String doInBackground(String... params) {
             String serverURL = params[0];
-            String postParameters = "country=" + params[1];
+            String postParameters = "building=" + params[1] + "&time1=" + params[2] + "&time2=" + params[3] + "&dow=" + params[4];
 
+            Log.d("ReadMe", "post = " + postParameters);
             try {
 
                 URL url = new URL(serverURL);
@@ -335,21 +344,22 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void showResult(){
-        String TAG_JSON="room";
+        String TAG_JSON = "lecture";
         String TAG_ClassRoom = "강의실";
         final Message outMessage=new Message();
         String myMsg = "[조회 결과]\n";
 
+        Log.d("ReadMe", "showResult();");
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-            for(int i=0; i<jsonArray.length(); i++){
+            for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String classRoom = item.getString(TAG_ClassRoom);
 
-                Log.d("TAG", "item: " + classRoom);
+                Log.d("ReadMe", "item: " + classRoom);
                 myMsg = myMsg + classRoom;
                 if (i != jsonArray.length() - 1) {
                     myMsg = myMsg + " / ";

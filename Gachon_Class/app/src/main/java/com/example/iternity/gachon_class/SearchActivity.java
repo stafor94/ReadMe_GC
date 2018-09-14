@@ -62,8 +62,6 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
                     myIntent.putExtra("building", btnSearch[no].getText().toString());
                     myIntent.putExtra("floor", items[no][position]);
                     startActivity(myIntent);
-
-                    Toast.makeText(getApplicationContext(), btnSearch[no].getText().toString() + " " +items[no][position] + " 선택!", Toast.LENGTH_SHORT).show();
                 }
             });
             builder[i].create();

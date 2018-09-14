@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class TimeTableActivity extends AppCompatActivity {
     LinearLayout[] layout = new LinearLayout[5];
-    private static String IP_ADDRESS = "192.168.43.111";
+    private static String IP_ADDRESS = "stafor.cafe24.com";
     private String mJsonString;
     final String TAG = "ReadMe";
     float[] lastTime = {1.f, 1.f, 1.f, 1.f, 1.f};    // 각 요일별 입력된 마지막 시간을 담는 변수
