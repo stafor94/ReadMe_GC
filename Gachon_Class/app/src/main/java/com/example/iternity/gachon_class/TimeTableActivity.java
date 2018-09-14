@@ -36,9 +36,9 @@ public class TimeTableActivity extends AppCompatActivity {
     final String TAG = "ReadMe";
     float[] lastTime = {1.f, 1.f, 1.f, 1.f, 1.f};    // 각 요일별 입력된 마지막 시간을 담는 변수
 
-    int[] colors = {Color.rgb(50,50,50), Color.rgb(150,0,0), Color.rgb(0,150,0),
-            Color.rgb(0,0,150), Color.rgb(100,100,0), Color.rgb(0,100,100),
-            Color.rgb(100,0,100), Color.rgb(250,150,0), Color.rgb(150,0,250)};
+    int[] colors = {Color.rgb(255,105,180), Color.rgb(0,175,255), Color.rgb(0,0,205),
+            Color.rgb(128,225,42), Color.rgb(85,238,148), Color.rgb(255,86,117),
+            Color.rgb(255,145,0), Color.rgb(173,25,236), Color.rgb(40,40,40)};
     int colorCnt = 0;
 
     ArrayList<Lecture> lectures = new ArrayList<>();

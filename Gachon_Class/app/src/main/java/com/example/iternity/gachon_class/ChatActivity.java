@@ -52,7 +52,7 @@ public class ChatActivity extends AppCompatActivity {
     private String workspace_id;
     private String conversation_username;
     private String conversation_password;
-    private String analytics_APIKEY;
+//    private String analytics_APIKEY;
     private Logger myLogger;
     private static String IP_ADDRESS = "192.168.43.111";
     private String mJsonString;
@@ -72,12 +72,12 @@ public class ChatActivity extends AppCompatActivity {
         conversation_username = mContext.getString(R.string.conversation_username);
         conversation_password = mContext.getString(R.string.conversation_password);
         workspace_id = mContext.getString(R.string.workspace_id);
-        analytics_APIKEY = mContext.getString(R.string.mobileanalytics_apikey);
+//        analytics_APIKEY = mContext.getString(R.string.mobileanalytics_apikey);
 
         //IBM Cloud Mobile Analytics
         BMSClient.getInstance().initialize(getApplicationContext(), BMSClient.REGION_SYDNEY);
         //Analytics is configured to record lifecycle events.
-        Analytics.init(getApplication(), "WatBot", analytics_APIKEY, false,false, Analytics.DeviceEvent.ALL);
+//        Analytics.init(getApplication(), "WatBot", analytics_APIKEY, false,false, Analytics.DeviceEvent.ALL);
         //Analytics.send();
         myLogger = Logger.getLogger("myLogger");
         // Send recorded usage analytics to the Mobile Analytics Service
