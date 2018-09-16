@@ -56,7 +56,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
         // php연결
         GetData task = new GetData();
-        task.execute( "http://" + IP_ADDRESS + "/getjson4.php", lectureRoom);
+        task.execute( "http://" + IP_ADDRESS + "/getInfo.php", lectureRoom);
 
         layout[0] = (LinearLayout) findViewById(R.id.layout_mon);
         layout[1] = (LinearLayout) findViewById(R.id.layout_tue);

@@ -76,7 +76,7 @@ public class FloorActivity extends AppCompatActivity {
         }
         // php연결
         GetData task = new GetData();
-        task.execute( "http://" + IP_ADDRESS + "/getjson3.php", building, floor);
+        task.execute( "http://" + IP_ADDRESS + "/getRooms.php", building, floor);
 
         // 다이어로그 생성 밑 설정
         builder = new AlertDialog.Builder(this);
@@ -162,7 +162,7 @@ public class FloorActivity extends AppCompatActivity {
 
                 // 응답을 읽습니다.
                 int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d("TAG", "response code - " + responseStatusCode);
+                Log.d("ReadMe", "response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
@@ -188,7 +188,7 @@ public class FloorActivity extends AppCompatActivity {
 
                 return sb.toString().trim();
             } catch (Exception e) {
-                Log.d("TAGo", "GetData : Error ", e);
+                Log.d("ReadMe", "GetData : Error ", e);
                 errorString = e.toString();
 
                 return null;
@@ -235,7 +235,7 @@ public class FloorActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
             }
         } catch (JSONException e) {
-            Log.d("결과", "showResult : ", e);
+            Log.d("ReadMe", "showResult : ", e);
         }
 
     }

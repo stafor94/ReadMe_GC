@@ -199,18 +199,17 @@ public class ChatActivity extends AppCompatActivity {
 
                                 // php연결
                                 GetData task = new GetData();
-                                Log.d("ReadMe", "time = " + myTimer.matchTime(times));
-                                if (myTimer.matchTime(times).contains("/")) {   // 강의시간이 2개가 겹치면
+                                if (myTimer.matchTime(times).split("/").length > 1) {   // 강의시간이 2개가 겹치면
                                     String[] mTimes = myTimer.matchTime(times).split("/");
-                                    Log.d("ReadMe", "length = " + mTimes.length);
-                                    task.execute( "http://" + IP_ADDRESS + "/getjson2.php", buildings, mTimes[0], mTimes[1], myTimer.getChatDow(dates));
-                                    Log.d("ReadMe", "result = " + buildings + " + "  + mTimes[0] + " + "  + mTimes[1] + " + " + myTimer.getChatDow(dates));
+                                    String param1 = myTimer.getChatDow(dates) + mTimes[0];
+                                    String param2 = myTimer.getChatDow(dates) + mTimes[1];
+                                    task.execute( "http://" + IP_ADDRESS + "/getAvailable.php", buildings, param1, param2);
                                 } else {
-                                    task.execute( "http://" + IP_ADDRESS + "/getjson2.php", buildings, myTimer.matchTime(times), "x", myTimer.getChatDow(dates));
+                                    String param1 = myTimer.getChatDow(dates) + myTimer.matchTime(times);
+                                    task.execute( "http://" + IP_ADDRESS + "/getAvailable.php", buildings, param1, "x");
                                 }
 
                                 context.clear();    //context 초기화
-                                Log.e("ReadMe", "Context = > "  + dates + " / " + times + " / " + buildings);
                             }
                             messageArrayList.add(outMessage);
                         }
@@ -291,11 +290,9 @@ public class ChatActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String serverURL = params[0];
-            String postParameters = "building=" + params[1] + "&time1=" + params[2] + "&time2=" + params[3] + "&dow=" + params[4];
+            String postParameters = "building=" + params[1] + "&time1=" + params[2] + "&time2=" + params[3];
 
-            Log.d("ReadMe", "post = " + postParameters);
             try {
-
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
@@ -311,7 +308,7 @@ public class ChatActivity extends AppCompatActivity {
                 outputStream.close();
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d("TAG", "response code - " + responseStatusCode);
+                Log.d("ReadMe", "response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
@@ -335,7 +332,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 return sb.toString().trim();
             } catch (Exception e) {
-                Log.d("TAG", "GetData : Error ", e);
+                Log.d("ReadMe", "GetData : Error ", e);
                 errorString = e.toString();
 
                 return null;
@@ -349,29 +346,24 @@ public class ChatActivity extends AppCompatActivity {
         final Message outMessage=new Message();
         String myMsg = "[조회 결과]\n";
 
-        Log.d("ReadMe", "showResult();");
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject item = jsonArray.getJSONObject(i);
-
                 String classRoom = item.getString(TAG_ClassRoom);
-
-                Log.d("ReadMe", "item: " + classRoom);
                 myMsg = myMsg + classRoom;
                 if (i != jsonArray.length() - 1) {
                     myMsg = myMsg + " / ";
                 }
-
             }
             outMessage.setMessage(myMsg);
             outMessage.setId("2");
             messageArrayList.add(outMessage);
             recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
         } catch (JSONException e) {
-            Log.d("TAG", "showResult : ", e);
+            Log.d("ReadMe", "showResult : ", e);
         }
 
     }

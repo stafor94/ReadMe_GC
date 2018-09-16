@@ -82,6 +82,14 @@ public class MyTimer {
         if (time >= 2110 && time < 2205) result += "13";
         if (time >= 2205 && time < 2255) result += "14";
 
+        if (result.equals("")) {    // 위 시간표에 해당하지 않으면
+            result += "x";
+        }
+
+        if (result.length() > 0 && result.charAt(result.length() - 1) == '/') {    // 마지막이 '/'로 끝나면
+            result = result.substring(0, result.length() - 1);  // '/'를 제거한다
+        }
+
         return result;
     }
 
