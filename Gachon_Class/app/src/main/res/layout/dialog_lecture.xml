@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -18,12 +19,38 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="상세정보"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteY="24dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+        <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:text="강의명"
             android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
             android:textStyle="bold" />
 
         <TextView
@@ -32,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="#f00"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -55,6 +82,7 @@
             android:layout_weight="3"
             android:text="강의시간"
             android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
             android:textStyle="bold" />
 
         <TextView
@@ -63,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="#f00"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -86,6 +114,7 @@
             android:layout_weight="3"
             android:text="교수"
             android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
             android:textStyle="bold" />
 
         <TextView
@@ -94,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="#f00"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -117,6 +146,7 @@
             android:layout_weight="3"
             android:text="학수번호"
             android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
             android:textStyle="bold" />
 
         <TextView
@@ -125,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="#f00"
             android:textStyle="bold" />
     </LinearLayout>
 

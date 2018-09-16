@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CustomDialog {
+public class CustomDialog_detail {
     private Context context;
 
-    public CustomDialog(Context context) {
+    public CustomDialog_detail(Context context) {
         this.context = context;
     }
 

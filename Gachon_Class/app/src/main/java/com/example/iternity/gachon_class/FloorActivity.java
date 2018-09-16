@@ -44,9 +44,8 @@ public class FloorActivity extends AppCompatActivity {
     private String mJsonString;
     private String building, floor, lectureRoom;
     Intent myIntent;
-    URLConnector task;
     AlertDialog.Builder builder;
-    final String[] items = {"시간표 조회", "알림설정", "예약문의", "즐겨찾기 등록"};
+    final String[] items = {"시간표 조회", "예약문의", "즐겨찾기 등록"};
     DBHelper_Bookmark dbHelper;
     MyTimer myTimer;
 
@@ -84,16 +83,16 @@ public class FloorActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int position) {
                 switch (position) {
-                    case 0:
+                    case 0: // 시간표 조회
                         Intent mIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
-                        mIntent.putExtra("lectureRoom", lectureRoom);
+                        mIntent.putExtra("lectureRoom", lectureRoom);   // 강의실 명을 intent에 넣어 전달
                         startActivity(mIntent);
                         break;
-                    case 1:
+                    case 1: // 예약문의
+                        CustomDialog_office customDialogOffice = new CustomDialog_office(FloorActivity.this);
+                        customDialogOffice.callFunction(building);
                         break;
-                    case 2:
-                        break;
-                    case 3:
+                    case 2: // 즐겨찾기 등록
                         if (!dbHelper.isExist(lectureRoom)) {   // 중복된 강의실이 아니면
                             dbHelper.insert(lectureRoom);   // DB에 추가한다
                             Toast.makeText(getApplicationContext(), "즐겨찾기에 등록했습니다!", Toast.LENGTH_SHORT).show();
@@ -107,7 +106,7 @@ public class FloorActivity extends AppCompatActivity {
         builder.create();
     }
 
-    private class GetData extends AsyncTask<String, String, String> {
+    private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String errorString = null;
 

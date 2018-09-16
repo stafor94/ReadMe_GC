@@ -39,7 +39,7 @@ import java.util.Collections;
 public class BookmarkActivity extends AppCompatActivity {
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
-    final String[] items = {"시간표 조회", "알림설정", "예약문의", "즐겨찾기 취소"};
+    final String[] items = {"시간표 조회", "예약문의", "즐겨찾기 취소"};
     AlertDialog.Builder builder;
     private String nowSelect = null;
 
@@ -69,11 +69,12 @@ public class BookmarkActivity extends AppCompatActivity {
                         mIntent.putExtra("lectureRoom", nowSelect);
                         startActivity(mIntent);
                         break;
-                    case 1:
+                    case 1:// 예약문의
+                        String building = nowSelect.split("-")[0];
+                        CustomDialog_office customDialogOffice = new CustomDialog_office(BookmarkActivity.this);
+                        customDialogOffice.callFunction(building);
                         break;
                     case 2:
-                        break;
-                    case 3:
                         if (nowSelect != null)
                             dbHelper.delete(nowSelect); // 해당 강의실을 북마크에서 삭제한다
                             getBookmarkList();
