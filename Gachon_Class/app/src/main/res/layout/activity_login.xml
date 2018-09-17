@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -24,12 +25,13 @@
         <TextView
             android:id="@+id/textView20"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="65dp"
-            android:layout_marginTop="10dp"
-            android:text="빈 강의실 조회"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingRight="66dp"
+            android:text="로그인"
+            android:textAlignment="center"
             android:textSize="22dp"
+            android:textStyle="bold"
             tools:textColor="#e0ffffff" />
     </LinearLayout>
 
@@ -40,69 +42,147 @@
         <ImageView
             android:id="@+id/img_campus"
             android:layout_width="match_parent"
-            android:layout_height="212dp"
+            android:layout_height="150dp"
             android:layout_marginBottom="3dp"
             android:background="@drawable/image_login" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="20dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
+            android:id="@+id/layout_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="#fff"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="이메일 인증"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:layout_margin="8dp"
-            android:background="#fff"
-            android:hint="학교 이메일을 입력해주세요."
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textColorHint="#555" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="#aaa"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="로그인 이메일"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edit_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/border"
+                android:ems="10"
+                android:hint="ex) abc@gc.gachon.ac.kr"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="10dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="24sp" />
+
+            <CheckBox
+                android:id="@+id/chk_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:button="@android:drawable/checkbox_off_background"
+                android:checked="false"
+                android:text="자동 로그인"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="8dp"
             android:background="#065299"
-            android:text="다음"
+            android:gravity="center"
+            android:text="로그인"
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:textStyle="bold" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
+            android:id="@+id/layout_signup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            android:paddingBottom="5dp">
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <Button
-                android:id="@+id/btnLoginManual"
+            <TextView
+                android:id="@+id/textView17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#f2eded"
-                android:text="개인정보 취급 및 설명"
-                android:textColor="#aba9a9"
-                tools:layout_editor_absoluteY="283dp" />
+                android:layout_margin="8dp"
+                android:background="#aaa"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="가천대학교 이메일"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edit_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/border"
+                android:ems="10"
+                android:hint="ex) abc@gc.gachon.ac.kr"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="10dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="24sp" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:background="#065299"
+            android:text="간편가입"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp">
+
+        <Button
+            android:id="@+id/btnLoginManual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#f2eded"
+            android:text="개인정보 취급 및 설명"
+            android:textColor="#aba9a9"
+            tools:layout_editor_absoluteY="283dp" />
     </LinearLayout>
 
 </LinearLayout>
