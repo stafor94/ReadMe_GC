@@ -1,13 +1,13 @@
 package com.example.iternity.gachon_class;
 
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -103,7 +103,17 @@ public class CustomDialog_office {
         // 글자색 부여
         tv_name.setTextColor(Color.BLUE);
         tv_tel.setTextColor(Color.BLUE);
-
+        // 번호 클릭 시 전화연결
+        tv_tel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tv = (TextView)v;
+                Intent mIntent = new Intent();
+                mIntent.setAction(Intent.ACTION_DIAL);
+                mIntent.setData(Uri.parse("tel:" + tv.getText().toString()));
+                context.startActivity(mIntent);
+            }
+        });
         // 레이아웃에 추가
         layout.addView(tv_name);
         layout.addView(tv_tel);
