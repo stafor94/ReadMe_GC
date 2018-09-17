@@ -9,17 +9,22 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageButton btn_menu_1, btn_menu_2, btn_menu_3, btn_menu_4;
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent mIntent = getIntent();
+        tv = (TextView) findViewById(R.id.tv_email);
+        tv.setText(mIntent.getStringExtra("email"));
         btn_menu_1 = (ImageButton) findViewById(R.id.btnMain01);
         btn_menu_2 = (ImageButton) findViewById(R.id.btnMain02);
         btn_menu_3 = (ImageButton) findViewById(R.id.btnMain03);

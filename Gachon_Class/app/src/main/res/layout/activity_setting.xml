@@ -237,9 +237,21 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#e7e7e7"
+            android:text="로그아웃"
+            android:textColor="#b1b1b1"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_reset_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
+            android:layout_margin="5dp"
             android:background="#e7e7e7"
             android:text="사용자 정보 초기화"
             android:textColor="#b1b1b1"

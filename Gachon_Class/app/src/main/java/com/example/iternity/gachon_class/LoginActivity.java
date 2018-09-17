@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     View dialogLayout;   // layout을 담을 View
     Dialog authDialog;  // dialog
 
-    String email = "";
+    String email = "";  // SQLite DB에 저장된 email
 
     final int authNum = new Random().nextInt(90000) + 10000; // 10001~99999
     boolean auto = false;
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // SQLite에 저장된 북마크 정보를 리스트뷰로 가져와 보여준다
     private void getMemberList() {
         try {
-            if (!dbHelper.getResult().equals("")) { // SQLite DB에 데이터가 존재하면
+            if (dbHelper.isExist()) { // SQLite DB에 데이터가 존재하면
                 email = dbHelper.getResult().split("&")[0];
                 auto = (dbHelper.getResult().split("&")[1].equals("0")) ? false : true; // 0이면 false, 1이면 true
 
@@ -239,7 +239,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 if (user_input == authNum) {
-                    dbHelper.insert(email); // SQLite DB에 해당 이메일을 생성
+                    dbHelper.insert(edit_signup.getText().toString()); // SQLite DB에 해당 이메일을 생성
                     AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                     alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override

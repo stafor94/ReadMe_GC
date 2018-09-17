@@ -13,7 +13,7 @@ public class DBHelper_Login extends SQLiteOpenHelper {
     Cursor cursor;
 
     // Database name
-    private static final String DATABASE_NAME = "Gachon.db";
+    private static final String DATABASE_NAME = "GachonMember.db";
     // Database version
     private static final int DATABASE_VERSION = 1;
     // Table name
@@ -33,7 +33,7 @@ public class DBHelper_Login extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         /* 테이블을 생성하기 위해 sql문으로 작성하여 execSQL 문 실행 */
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, auto INTEGER DEFAULT 0);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, auto INTEGER);");
     }
 
     /* 데이터베이스 Version Upgrade
@@ -52,7 +52,8 @@ public class DBHelper_Login extends SQLiteOpenHelper {
     public void insert(String email) {
         db = getWritableDatabase();
 
-        db.execSQL("INSERT INTO " + TABLE_NAME + "(email) VALUES('" + email + "');");
+        db.execSQL("INSERT INTO " + TABLE_NAME + " VALUES(null, '" + email + "', 0);");
+
         db.close();
     }
 
@@ -96,7 +97,7 @@ public class DBHelper_Login extends SQLiteOpenHelper {
         cursor = db.rawQuery("SELECT email FROM " + TABLE_NAME + ";", null);
         cursor.moveToFirst();
 
-        if (cursor.getCount() == 0) {
+        if (cursor.getCount() > 0) {
             cursor.close();
             return true;
         }
