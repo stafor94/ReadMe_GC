@@ -36,17 +36,12 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {   // 로그아
                 dbHelper.update(0);
-                Intent mIntent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(mIntent);
-
                 AlertDialog.Builder alert = new AlertDialog.Builder(SettingActivity.this);
                 alert.setCancelable(false); // Dialog 바깥 부분을 선택해도 닫히지 않게 설정함.
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-
-                        finish();
                         restart();
                     }
                 });
@@ -67,21 +62,17 @@ public class SettingActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dbHelper.delete();
 
-                                Intent mIntent = new Intent(getApplicationContext(), LoginActivity.class);
-                                startActivity(mIntent);
-
                                 AlertDialog.Builder alert = new AlertDialog.Builder(SettingActivity.this);
+                                alert.setCancelable(false); // Dialog 바깥 부분을 선택해도 닫히지 않게 설정함.
                                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
+                                        restart();
                                     }
                                 });
                                 alert.setMessage("탈퇴되었습니다!");
                                 alert.show();
-
-                                finish();
-                                restart();
                             }
                         })
                         .setNegativeButton("취소", null)
@@ -90,6 +81,7 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
+    // App 재시작
     public void restart() {
         Intent i = getBaseContext().getPackageManager().
                 getLaunchIntentForPackage(getBaseContext().getPackageName());
