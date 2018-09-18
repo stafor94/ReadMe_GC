@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton btn_menu_1, btn_menu_2, btn_menu_3, btn_menu_4;
     TextView tv;
+    String email;   // 사용자 이메일
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent mIntent = getIntent();
-        tv = (TextView) findViewById(R.id.tv_email);
-        tv.setText(mIntent.getStringExtra("email"));
+        email = mIntent.getStringExtra("email");
         btn_menu_1 = (ImageButton) findViewById(R.id.btnMain01);
         btn_menu_2 = (ImageButton) findViewById(R.id.btnMain02);
         btn_menu_3 = (ImageButton) findViewById(R.id.btnMain03);
@@ -32,30 +32,31 @@ public class MainActivity extends AppCompatActivity {
 
         btn_menu_1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivity(myIntent);
+            public void onClick(View v) {   // 강의실 조회
+                Intent mIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(mIntent);
             }
         });
         btn_menu_2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(myIntent);
+            public void onClick(View v) {   // 챗봇
+                Intent mIntent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(mIntent);
             }
         });
         btn_menu_3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), BookmarkActivity.class);
-                startActivity(myIntent);
+            public void onClick(View v) {   // 즐겨찾기
+                Intent mIntent = new Intent(getApplicationContext(), BookmarkActivity.class);
+                startActivity(mIntent);
             }
         });
         btn_menu_4.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), SettingActivity.class);
-                startActivity(myIntent);
+            public void onClick(View v) {   // 설정
+                Intent mIntent = new Intent(getApplicationContext(), SettingActivity.class);
+                mIntent.putExtra("email", email);
+                startActivity(mIntent);
             }
         });
     }

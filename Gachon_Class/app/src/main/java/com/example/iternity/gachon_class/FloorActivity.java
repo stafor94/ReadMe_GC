@@ -109,7 +109,7 @@ public class FloorActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(FloorActivity.this,
-                    "Please Wait", null, true, true);
+                    "Please Wait", "서버에서 정보를 가져오는 중 입니다.", true, false);
         }
 
         @Override

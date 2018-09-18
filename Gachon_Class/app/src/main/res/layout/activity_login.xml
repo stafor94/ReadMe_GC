@@ -50,27 +50,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/layout_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="#aaa"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="로그인 이메일"
-                android:textAlignment="center"
-                android:textColor="#fff"
-                android:textSize="18sp" />
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/edit_login"
@@ -81,7 +69,9 @@
                 android:ems="10"
                 android:hint="ex) abc@gc.gachon.ac.kr"
                 android:inputType="textEmailAddress"
+                android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
+                android:paddingTop="5dp"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="24sp" />
@@ -90,8 +80,8 @@
                 android:id="@+id/chk_auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:button="@android:drawable/checkbox_off_background"
+                android:layout_margin="10dp"
+                android:buttonTint="@android:color/black"
                 android:checked="false"
                 android:text="자동 로그인"
                 android:textColor="@android:color/black" />
@@ -115,6 +105,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/border"
         android:orientation="vertical">
 
         <LinearLayout
@@ -123,19 +115,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="#aaa"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="가천대학교 이메일"
-                android:textAlignment="center"
-                android:textColor="#fff"
-                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edit_signup"
@@ -171,18 +150,25 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="bottom"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:text="보안 정책 상 기기 당 하나의 계정만 가입이 가능합니다."
+            android:textColor="@android:color/holo_red_dark" />
 
         <Button
-            android:id="@+id/btnLoginManual"
+            android:id="@+id/btnMainManual2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="#f2eded"
-            android:text="개인정보 취급 및 설명"
-            android:textColor="#aba9a9"
-            tools:layout_editor_absoluteY="283dp" />
+            android:paddingBottom="5dp"
+            android:text="COPYRIGHTS ⓒ README. ALL RIGHTS RESERVED."
+            android:textColor="#aba9a9" />
     </LinearLayout>
 
 </LinearLayout>

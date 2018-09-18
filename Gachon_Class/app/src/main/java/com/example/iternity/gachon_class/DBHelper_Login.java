@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 //북마크 DBHelper 클래스
 public class DBHelper_Login extends SQLiteOpenHelper {
@@ -58,10 +59,11 @@ public class DBHelper_Login extends SQLiteOpenHelper {
     }
 
     // 테이블의 레코드 update
-    public void update(String email, int auto) {
+    public void update(int auto) {
         db = getWritableDatabase();
 
-        db.execSQL("UPDATE " + TABLE_NAME + "SET auto = " + auto + " WHERE email = '" + email + "');"); // 자동로그인 상태변경
+        db.execSQL("UPDATE " + TABLE_NAME + " SET auto = " + auto + ";"); // 자동로그인 상태변경
+
         db.close();
     }
 
@@ -81,8 +83,8 @@ public class DBHelper_Login extends SQLiteOpenHelper {
         cursor = db.rawQuery("SELECT email, auto FROM " + TABLE_NAME + ";", null);
         cursor.moveToFirst();
 
-        if (cursor.getCount() > 0) {
-            result += cursor.getString(0) + "&" + cursor.getInt(0);
+        if (cursor.getCount() != 0) {
+            result += cursor.getString(cursor.getColumnIndex("email")) + "&" + cursor.getInt(cursor.getColumnIndex("auto"));
         }
 
         cursor.close();
@@ -97,7 +99,7 @@ public class DBHelper_Login extends SQLiteOpenHelper {
         cursor = db.rawQuery("SELECT email FROM " + TABLE_NAME + ";", null);
         cursor.moveToFirst();
 
-        if (cursor.getCount() > 0) {
+        if (cursor.getCount() != 0) {
             cursor.close();
             return true;
         }

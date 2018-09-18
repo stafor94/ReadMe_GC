@@ -2,6 +2,7 @@ package com.example.iternity.gachon_class;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -22,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -78,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 email = dbHelper.getResult().split("&")[0];
                 auto = (dbHelper.getResult().split("&")[1].equals("0")) ? false : true; // 0이면 false, 1이면 true
 
-                Log.d("ReadMe", "email : " + email + " / auto : " + auto);
                 if (auto)   // 자동 로그인 상태이면
                     login();
             }
@@ -88,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
+        Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
         Intent mIntent = new Intent(this, MainActivity.class);
         mIntent.putExtra("email", email);
         startActivity(mIntent);
@@ -133,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String mEmail = edit_login.getText().toString();
                     if (mEmail.equals(email) && !mEmail.equals("")) {   // SQLite DB의 email과 같고, 공백이 아니면
                         if (chk_auto.isChecked()) { // 자동 로그인 체크시
-                            dbHelper.update(email, 1);  // SQLite DB에서 정보 수정
+                            dbHelper.update(1);  // SQLite DB에서 정보 수정
                         }
                         login();    // 로그인 완료
                     } else {
@@ -157,6 +159,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.btn_signup:
+                if (dbHelper.isExist()) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alert.setMessage("이미 등록된 이메일이 있습니다!");
+                    alert.show();
+                    break;
+                }
                 if (flag_signup) {
                     String mEmail = edit_signup.getText().toString();
                     if (mEmail.contains("gachon.ac.kr")) {
