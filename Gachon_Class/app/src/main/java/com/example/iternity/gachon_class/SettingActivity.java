@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class SettingActivity extends AppCompatActivity {
     Button btn_logout, btn_reset_email;
-    TextView tv_email;
+    TextView tv_email, tv_version;
     DBHelper_Login dbHelper;
     String email;   // 사용자 이메일
 
@@ -28,10 +28,26 @@ public class SettingActivity extends AppCompatActivity {
         dbHelper = new DBHelper_Login(this);
 
         tv_email = (TextView) findViewById(R.id.tv_email);
+        tv_version = (TextView) findViewById(R.id.tv_version);
         btn_logout = (Button) findViewById(R.id.btn_logout);
         btn_reset_email = (Button) findViewById(R.id.btn_reset_email);
 
         tv_email.setText(email);    // 사용자 이메일 표시
+        tv_version.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(SettingActivity.this);
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        restart();
+                    }
+                });
+                alert.setMessage("Version 0.6");
+                alert.show();
+            }
+        });
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {   // 로그아
@@ -47,7 +63,6 @@ public class SettingActivity extends AppCompatActivity {
                 });
                 alert.setMessage("자동 로그인이 해제되었습니다!");
                 alert.show();
-
             }
         });
 

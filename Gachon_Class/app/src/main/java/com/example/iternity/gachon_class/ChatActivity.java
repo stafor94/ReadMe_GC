@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -191,6 +193,7 @@ public class ChatActivity extends AppCompatActivity {
                                     outMessage.setMessage(myMsg);
                                     outMessage.setId("2");
                             }
+
                             if (context.get("dates") != null && context.get("times") != null && context.get("buildings") != null) {
                                 myTimer = new MyTimer();
                                 dates = (String)context.get("dates");
@@ -223,7 +226,16 @@ public class ChatActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
+                        if (context.get("End") != null) {  // 종료 메시지 입력 시
+                            try {
+                                // 1.5초 대기 후 종료
+                                Thread.sleep(1500);
+                                context.clear();
+                                finish();
+                            } catch(InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

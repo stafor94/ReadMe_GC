@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     String email = "";  // SQLite DB에 저장된 email
 
-    final int authNum = new Random().nextInt(90000) + 10000; // 10001~99999
+    int authNum;    // 인증번호
     boolean auto = false;
     private boolean flag_login = false, flag_signup = false;
     CountDownTimer countDownTimer;
@@ -204,6 +204,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         window.setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
                         countDownTimer();
                         GMailSender sender = new GMailSender("ojland17@gmail.com", "dhlwnskfk");
+                        authNum = new Random().nextInt(90000) + 10000; // 10001~99999
                         Log.d("ReadMe", "To : " + edit_signup.getText().toString());
                         try {
                             sender.sendMail(
@@ -263,6 +264,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
                     alert.setMessage("가입이 완료되었습니다!");
                     alert.show();
+
+                    email = dbHelper.getResult().split("&")[0]; // 이메일 정보 받아옴
 
                     // 로그인 위젯을 띄우고 focus 요청
                     flag_login = true;
