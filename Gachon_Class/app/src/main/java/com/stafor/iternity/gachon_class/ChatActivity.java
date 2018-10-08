@@ -1,4 +1,4 @@
-package com.example.iternity.gachon_class;
+package com.stafor.iternity.gachon_class;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -54,7 +54,6 @@ public class ChatActivity extends AppCompatActivity {
     private String workspace_id;
     private String conversation_username;
     private String conversation_password;
-//    private String analytics_APIKEY;
     private Logger myLogger;
     private static String IP_ADDRESS = "stafor.cafe24.com";
     private String mJsonString;
@@ -62,7 +61,6 @@ public class ChatActivity extends AppCompatActivity {
 
     MyTimer myTimer;
     String test;
-    URLConnector task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +73,6 @@ public class ChatActivity extends AppCompatActivity {
         conversation_username = mContext.getString(R.string.conversation_username);
         conversation_password = mContext.getString(R.string.conversation_password);
         workspace_id = mContext.getString(R.string.workspace_id);
-//        analytics_APIKEY = mContext.getString(R.string.mobileanalytics_apikey);
 
         //IBM Cloud Mobile Analytics
         BMSClient.getInstance().initialize(getApplicationContext(), BMSClient.REGION_SYDNEY);

@@ -1,12 +1,14 @@
-package com.example.iternity.gachon_class;
+package com.stafor.iternity.gachon_class;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,47 +35,37 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class FloorActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity {
     private ListView mListView = null;
+//    private ListViewAdapter lAdapter = null;
     private MyAdapter mAdapter = null;
+    final String[] items = {"시간표 조회", "예약문의", "즐겨찾기 취소"};
+    AlertDialog.Builder builder;
+    private String nowSelect = null;
     private static String IP_ADDRESS = "stafor.cafe24.com";
     private String mJsonString;
-    private String building, floor, lectureRoom;
-    Intent myIntent;
-    AlertDialog.Builder builder;
-    final String[] items = {"시간표 조회", "예약문의", "즐겨찾기 등록"};
-    DBHelper_Bookmark dbHelper;
+    GetData task;
     MyTimer myTimer;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_floor);
+    DBHelper_Bookmark dbHelper;
 
-        /* 위젯과 멤버변수 참조 획득 */
-        mListView = (ListView) findViewById(R.id.listFloor);
-        /* 리스트뷰에 어댑터 등록 */
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bookmark);
+
+        mListView = (ListView) findViewById(R.id.listBookmark);
+
+//        lAdapter = new ListViewAdapter(this);
         mAdapter = new MyAdapter(this);
         mListView.setAdapter(mAdapter);
 
-        // DBHelper
         dbHelper = new DBHelper_Bookmark(getApplicationContext());
-
-        /* 건물명, 층 수 받기 */
-        myIntent = getIntent();
-        building = myIntent.getStringExtra("building");
-        floor = myIntent.getStringExtra("floor");
-
-        if (floor.charAt(0) == 'B') {
-            floor = floor.substring(0,2);
-        } else {
-            floor = floor.substring(0,1);
-        }
-        // php연결
-        GetData task = new GetData();
-        task.execute( "http://" + IP_ADDRESS + "/getRooms.php", building, floor);
+        getBookmarkList();
 
         // 다이어로그 생성 밑 설정
         builder = new AlertDialog.Builder(this);
@@ -78,27 +73,125 @@ public class FloorActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int position) {
                 switch (position) {
-                    case 0: // 시간표 조회
+                    case 0:
                         Intent mIntent = new Intent(getApplicationContext(), TimeTableActivity.class);
-                        mIntent.putExtra("lectureRoom", lectureRoom);   // 강의실 명을 intent에 넣어 전달
+                        mIntent.putExtra("lectureRoom", nowSelect);
                         startActivity(mIntent);
                         break;
-                    case 1: // 예약문의
-                        CustomDialog_office customDialogOffice = new CustomDialog_office(FloorActivity.this);
+                    case 1:// 예약문의
+                        String building = nowSelect.split("-")[0];
+                        CustomDialog_office customDialogOffice = new CustomDialog_office(BookmarkActivity.this);
                         customDialogOffice.callFunction(building);
                         break;
-                    case 2: // 즐겨찾기 등록
-                        if (!dbHelper.isExist(lectureRoom)) {   // 중복된 강의실이 아니면
-                            dbHelper.insert(lectureRoom);   // DB에 추가한다
-                            Toast.makeText(getApplicationContext(), "즐겨찾기에 등록했습니다!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "이미 등록한 강의실 입니다.", Toast.LENGTH_SHORT).show();
-                        }
+                    case 2:
+                        if (nowSelect != null)
+                            dbHelper.delete(nowSelect); // 해당 강의실을 북마크에서 삭제한다
+                            getBookmarkList();
                         break;
                 }
             }
         });
         builder.create();
+    }
+
+    private class ViewHolder {
+        public ImageView mImg;
+        public Button mBtn;
+    }
+
+//    private class ListViewAdapter extends BaseAdapter {
+//        private Context mContext = null;
+//        private ArrayList<String> mListData = new ArrayList<String>();
+//
+//        public ListViewAdapter(Context mContext) {
+//            super();
+//            this.mContext = mContext;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mListData.size();
+//        }
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return mListData.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ViewHolder holder;
+//            final int pos = position;
+//            if (convertView == null) {
+//                holder = new ViewHolder();
+//
+//                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                convertView = inflater.inflate(R.layout.bookmarkitem, null);
+//
+//                holder.mImg = (ImageView) convertView.findViewById(R.id.bookmarkImg);
+//                holder.mBtn = (Button) convertView.findViewById(R.id.bookmarkClassroom);
+//
+//                convertView.setTag(holder);
+//            } else {
+//                holder = (ViewHolder) convertView.getTag();
+//            }
+//
+//            final String mData = mListData.get(position);
+//            if (mData.equals("")) {
+//                Toast.makeText(getApplicationContext(), "등록된 강의실이 없습니다!", Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//
+//            holder.mBtn.setText(mData);
+//            holder.mBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    nowSelect = mData;  // 클릭한 강의실 이름을 저장
+//                    builder.setTitle(mData);
+//                    builder.show();
+//                }
+//            });
+//
+//            return convertView;
+//        }
+//
+//        public void addItem(String lectureRoom){
+//            String addInfo = lectureRoom;
+//            mListData.add(addInfo);
+//        }
+//
+//        public void remove(int position){
+//            mListData.remove(position);
+//        }
+//
+//        public void clear() { mListData.clear(); }
+//    }
+
+    // SQLite에 저장된 북마크 정보를 리스트뷰로 가져와 보여준다
+    private void getBookmarkList() {
+        try {
+            mAdapter.clear();   // ArrayList를 초기화한다.
+            String[] lectureRoom = dbHelper.getResult().split(","); // SQLite에서 ","를 구분자로하여 북마크 등록된 강의실을 불러온다.
+
+            // 등록된 즐겨찾기가 없으면 종료
+            if (dbHelper.getResult().equals("")) {
+                Toast.makeText(getApplicationContext(), "등록된 강의실이 없습니다!", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            for (int i = 0; i < lectureRoom.length; i++) {  // 각 강의실을 추가한다
+                // php연결
+                new GetData().execute( "http://" + IP_ADDRESS + "/getInfo.php", lectureRoom[i]);
+            }
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        }
     }
 
     private class GetData extends AsyncTask<String, Void, String> {
@@ -108,7 +201,7 @@ public class FloorActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(FloorActivity.this,
+            progressDialog = ProgressDialog.show(BookmarkActivity.this,
                     "Please Wait", "서버에서 정보를 가져오는 중 입니다.", true, false);
         }
 
@@ -135,7 +228,7 @@ public class FloorActivity extends AppCompatActivity {
             // HTTP 메시지 본문에 포함되어 전송되기 때문에 따로 데이터를 준비해야 합니다.
             // 전송할 데이터는 “이름=값” 형식이며 여러 개를 보내야 할 경우에는 항목 사이에 &를 추가합니다.
             // 여기에 적어준 이름을 나중에 PHP에서 사용하여 값을 얻게 됩니다.
-            String postParameters = "building=" + params[1] + "&floor=" + params[2];
+            String postParameters = "lectureRoom=" + params[1];
 
             try {
                 // 2. HttpURLConnection 클래스를 사용하여 POST 방식으로 데이터를 전송합니다.
@@ -198,7 +291,6 @@ public class FloorActivity extends AppCompatActivity {
 
         String DoW = myTimer.getDayOfWeek();    // 현재요일
         int CT = myTimer.getCurrentTime();  // 현재시간
-        Log.d("ReadMe", "CT = " + CT);
         int[] mTimes;   // 시작시간과 종료시간을 담을 변수
 
         try {
@@ -212,10 +304,10 @@ public class FloorActivity extends AppCompatActivity {
                 String lectureRoom = item.getString(TAG_LectureRoom); // 강의실
                 String time = item.getString(TAG_Time); // 강의시간
                 mTimes = myTimer.convertTime(time); // 강의 시작시간, 종료시간
+                Log.d("ReadMe", "LecRm: " + lectureRoom);
 
                 if (!subject.equals(lectureRoom)) { // 강의실이 등록되어있지 않으면
                     mAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.icon_running), lectureRoom);
-
                     subject = lectureRoom;
                 }
                 if (CT > mTimes[0] && CT < mTimes[1] && time.contains(DoW)) { // 현재시간이 수업시간이면
@@ -225,18 +317,12 @@ public class FloorActivity extends AppCompatActivity {
                     mAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.icon_stop), lectureRoom);
                 }
 
-
                 mAdapter.notifyDataSetChanged();
             }
         } catch (JSONException e) {
             Log.d("ReadMe", "showResult : ", e);
         }
 
-    }
-
-    private class ViewHolder {
-        public ImageView mImg;
-        public TextView mTv;
     }
 
     private class MyAdapter extends BaseAdapter {
@@ -274,13 +360,13 @@ public class FloorActivity extends AppCompatActivity {
                 holder = new ViewHolder();
 
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.floor_listview_custom, null);
+                convertView = inflater.inflate(R.layout.bookmarkitem, null);
 
-                holder.mImg = (ImageView) convertView.findViewById(R.id.iv_img);
-                holder.mTv = (TextView) convertView.findViewById(R.id.tv_name);
+                holder.mImg = (ImageView) convertView.findViewById(R.id.bookmarkImg);
+                holder.mBtn = (Button) convertView.findViewById(R.id.bookmarkClassroom);
 
                 convertView.setTag(holder);
-            }else{
+            } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
@@ -289,14 +375,14 @@ public class FloorActivity extends AppCompatActivity {
 
             /* 각 위젯에 세팅된 아이템을 뿌려준다 */
             holder.mImg.setImageDrawable(myItem.getIcon());
-            holder.mTv.setText(myItem.getName());
+            holder.mBtn.setText(myItem.getName());
 
             /* (위젯에 대한 이벤트리스너를 지정하고 싶다면 여기에 작성하면된다..)  */
-            holder.mTv.setOnClickListener(new View.OnClickListener() {
+            holder.mBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    nowSelect = myItem.getName();
                     builder.setTitle(myItem.getName());
-                    lectureRoom = myItem.getName();
                     builder.show();
                 }
             });
@@ -318,6 +404,7 @@ public class FloorActivity extends AppCompatActivity {
         public void removeItem(int index) {
             mItems.remove(index);
         }
+        public void clear() { mItems.clear(); }
     }
 
     private class MyItem {

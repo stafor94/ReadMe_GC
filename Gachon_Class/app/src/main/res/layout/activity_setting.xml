@@ -57,7 +57,8 @@
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
@@ -83,8 +84,10 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/tv_devEmail"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="ojland17@gmail.com"
@@ -111,10 +114,11 @@
         <TextView
             android:id="@+id/tv_version"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:text="Version 1.0.0"
+            android:text="@string/version"
             android:textColor="#666666"
             android:textSize="25sp" />
 
@@ -139,7 +143,7 @@
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:background="#065299"
             android:text="자동 로그인 해제"
             android:textColor="@android:color/background_light"
@@ -150,12 +154,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:background="#065299"
             android:text="회원탈퇴"
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f2eded"
+            android:paddingBottom="5dp"
+            android:text="COPYRIGHTS ⓒ README. ALL RIGHTS RESERVED."
+            android:textColor="#aba9a9" />
     </LinearLayout>
 
 

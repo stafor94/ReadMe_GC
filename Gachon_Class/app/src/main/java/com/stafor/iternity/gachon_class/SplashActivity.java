@@ -1,4 +1,4 @@
-package com.example.iternity.gachon_class;
+package com.stafor.iternity.gachon_class;
 
 import android.content.Intent;
 import android.os.Bundle;

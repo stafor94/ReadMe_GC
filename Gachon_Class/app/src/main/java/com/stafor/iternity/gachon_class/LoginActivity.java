@@ -1,4 +1,4 @@
-package com.example.iternity.gachon_class;
+package com.stafor.iternity.gachon_class;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -44,17 +44,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     boolean auto = false;
     private boolean flag_login = false, flag_signup = false;
     CountDownTimer countDownTimer;
-    final int MILLISINFUTURE = 180 * 1000;  // 총 시간 (300초 = 5분)
+    final int MILLISINFUTURE = 300 * 1000;  // 총 시간 (300초 = 5분)
     final int COUNT_DOWN_INTERVAL = 1000;   // onTick 메소드를 호출할 간격 (1초)
 
-    DBHelper_Login dbHelper;
+    DBHelper_Login dbHelper_Login;
+    DBHelper_Bookmark dbHelper_Bookmark;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        dbHelper = new DBHelper_Login(this);
+        dbHelper_Login = new DBHelper_Login(this);
+        dbHelper_Bookmark = new DBHelper_Bookmark(this);
 
         getMemberList();
         init();
@@ -76,9 +79,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // SQLite에 저장된 북마크 정보를 리스트뷰로 가져와 보여준다
     private void getMemberList() {
         try {
-            if (dbHelper.isExist()) { // SQLite DB에 데이터가 존재하면
-                email = dbHelper.getResult().split("&")[0];
-                auto = (dbHelper.getResult().split("&")[1].equals("0")) ? false : true; // 0이면 false, 1이면 true
+            if (dbHelper_Login.isExist()) { // SQLite DB에 데이터가 존재하면
+                email = dbHelper_Login.getResult().split("&")[0];
+                auto = (dbHelper_Login.getResult().split("&")[1].equals("0")) ? false : true; // 0이면 false, 1이면 true
 
                 if (auto)   // 자동 로그인 상태이면
                     login();
@@ -89,7 +92,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
-        Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
         Intent mIntent = new Intent(this, MainActivity.class);
         mIntent.putExtra("email", email);
         startActivity(mIntent);
@@ -135,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String mEmail = edit_login.getText().toString();
                     if (mEmail.equals(email) && !mEmail.equals("")) {   // SQLite DB의 email과 같고, 공백이 아니면
                         if (chk_auto.isChecked()) { // 자동 로그인 체크시
-                            dbHelper.update(1);  // SQLite DB에서 정보 수정
+                            dbHelper_Login.update(1);  // SQLite DB에서 정보 수정
                         }
                         login();    // 로그인 완료
                     } else {
@@ -153,70 +155,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 } else {
                     flag_login = true;  // 로그인 열림 상태
+                    flag_signup = false;  // 간편가입 닫힘 상태
                     layout_login.setVisibility(View.VISIBLE);   // 로그인 위젯을 보여준다
+                    layout_signup.setVisibility(View.GONE);   // 간편가입 위젯을 감춘다
                     edit_login.setFocusableInTouchMode(true);   // focus 가능하게 함
                     edit_login.requestFocus();  // focus 요청
                 }
                 break;
             case R.id.btn_signup:
-                if (dbHelper.isExist()) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    alert.setMessage("이미 등록된 이메일이 있습니다!");
-                    alert.show();
+                if (dbHelper_Login.isExist()) {
+                    new android.support.v7.app.AlertDialog.Builder(this)
+                            .setTitle("기존 아이디 삭제")
+                            .setMessage("이미 등록된 아이디가 있습니다. 기존 아이디를 삭제하겠습니까?")
+                            .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dbHelper_Login.delete();    // 사용자 정보 제거
+                                    dbHelper_Bookmark.clear();  // 즐겨찾기 정보 제거
+                                    dbHelper_Login = new DBHelper_Login(getApplicationContext());
+                                    email = "";
+                                    Toast.makeText(getApplicationContext(), "아이디가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("취소", null)
+                            .show();
                     break;
                 }
                 if (flag_signup) {
                     String mEmail = edit_signup.getText().toString();
-                    if (mEmail.contains("gachon.ac.kr")) {
-                        if (mEmail.equals(email)) { // 이미 등록된 이메일이면
-                            AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            alert.setMessage("이미 등록된 이메일 입니다!");
-                            alert.show();
-                            break;
-                        }
-                        dialog = LayoutInflater.from(this);
-                        dialogLayout = dialog.inflate(R.layout.dialog_auth, null); // LayoutInflater를 통해 XML에 정의된 Resource들을 View의 형태로 반환 시켜 줌
-                        authDialog = new Dialog(this); // Dialog 객체 생성
-                        authDialog.setContentView(dialogLayout); // Dialog에 inflate한 View를 탑재 하여줌
-                        authDialog.setCanceledOnTouchOutside(false); // Dialog 바깥 부분을 선택해도 닫히지 않게 설정함.
-                        authDialog.setOnCancelListener(this);   // Dialog를 닫을 때 일어날 일을 정의하기 위해 설정
 
-                        // Dialog 크기 조정
-                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                        lp.copyFrom(authDialog.getWindow().getAttributes());
-                        lp.width = 800;
-                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                        authDialog.show(); //Dialog를 나타내어 준다.
-                        Window window = authDialog.getWindow();
-                        window.setAttributes(lp);
-                        window.setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
-                        countDownTimer();
-                        GMailSender sender = new GMailSender("ojland17@gmail.com", "dhlwnskfk");
-                        authNum = new Random().nextInt(90000) + 10000; // 10001~99999
-                        Log.d("ReadMe", "To : " + edit_signup.getText().toString());
-                        try {
-                            sender.sendMail(
-                                    "가천 Class 인증메일",    // Subject
-                                    "인증번호 : " + authNum,    // Body
-                                    "ojland17@gmail.com",   // Sender
-                                    edit_signup.getText().toString() // Receiver
-                            );
-                        } catch (Exception e) {
-                            Log.e("ReadMe", e.getMessage(), e);
-                        }
-                    } else if (mEmail.equals("")) {
+                    if (mEmail.equals("")) {    // 공백 입력 시
                         AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
@@ -227,7 +195,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         alert.setMessage("입력된 이메일이 없습니다!");
                         alert.show();
                         edit_signup.requestFocus();  // focus 요청
-                    } else {
+                        break;
+                    } else if (mEmail.contains("!") || mEmail.contains("@") || mEmail.contains("#") || mEmail.contains("$") || mEmail.contains("%") ||  // 특수문자 사용 시
+                            mEmail.contains("^") || mEmail.contains("&") || mEmail.contains("*") || mEmail.contains("(") || mEmail.contains(")")){
                         AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
@@ -235,14 +205,61 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 dialog.dismiss();
                             }
                         });
-                        alert.setMessage("가천대학교 이메일만 입력이 가능합니다!");
+                        alert.setMessage("특수문자는 입력 불가능합니다!");
                         alert.show();
                         edit_signup.setText(""); // EditText를 비운다
                         edit_signup.requestFocus();  // focus 요청
+                        break;
+                    } else if (mEmail.equals(email)) { // 이미 등록된 이메일이면
+                        AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        alert.setMessage("이미 등록된 이메일 입니다!");
+                        alert.show();
+                        break;
                     }
+                    dialog = LayoutInflater.from(this);
+                    dialogLayout = dialog.inflate(R.layout.dialog_auth, null); // LayoutInflater를 통해 XML에 정의된 Resource들을 View의 형태로 반환 시켜 줌
+                    authDialog = new Dialog(this); // Dialog 객체 생성
+                    authDialog.setContentView(dialogLayout); // Dialog에 inflate한 View를 탑재 하여줌
+                    authDialog.setCanceledOnTouchOutside(false); // Dialog 바깥 부분을 선택해도 닫히지 않게 설정함.
+                    authDialog.setOnCancelListener(this);   // Dialog를 닫을 때 일어날 일을 정의하기 위해 설정
+
+                    // Dialog 크기 조정
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                    lp.copyFrom(authDialog.getWindow().getAttributes());
+                    lp.width = 800;
+                    lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                    authDialog.show(); //Dialog를 나타내어 준다.
+                    Window window = authDialog.getWindow();
+                    window.setAttributes(lp);
+                    window.setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
+
+                    countDownTimer();   // 카운트 다운 시작
+
+                    GMailSender sender = new GMailSender("ojland17@gmail.com", "dhlwnskfk");
+                    authNum = new Random().nextInt(90000) + 10000; // 10001~99999
+                    Log.d("ReadMe", "To : " + edit_signup.getText().toString());
+                    try {
+                        sender.sendMail(
+                                "가천 Class 웹메일 인증",    // Subject
+                                "인증번호 : " + authNum + "\n\n위 인증번호를 앱에서 입력해주세요.",    // Body
+                                "ojland17@gmail.com",   // Sender
+                                mEmail + "@gc.gachon.ac.kr" // Receiver
+                        );
+                    } catch (Exception e) {
+                        Log.e("ReadMe", e.getMessage(), e);
+                    }
+
                 } else {
-                    flag_signup = true;  // 로그인 열림 상태
-                    layout_signup.setVisibility(View.VISIBLE);   // 로그인 위젯을 보여준다
+                    flag_signup = true;  // 간편가입 열림 상태
+                    flag_login = false;  // 로그인 닫힘 상태
+                    layout_signup.setVisibility(View.VISIBLE);   // 간편가입 위젯을 보여준다
+                    layout_login.setVisibility(View.GONE);   // 로그인 위젯을 감춘다
                     edit_signup.setFocusableInTouchMode(true);   // focus 가능하게 함
                     edit_signup.requestFocus();  // focus 요청
                 }
@@ -254,7 +271,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 if (user_input == authNum) {
-                    dbHelper.insert(edit_signup.getText().toString()); // SQLite DB에 해당 이메일을 생성
+                    dbHelper_Login.insert(edit_signup.getText().toString()); // SQLite DB에 해당 이메일을 생성
                     AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                     alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -265,7 +282,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     alert.setMessage("가입이 완료되었습니다!");
                     alert.show();
 
-                    email = dbHelper.getResult().split("&")[0]; // 이메일 정보 받아옴
+                    email = dbHelper_Login.getResult().split("&")[0]; // 이메일 정보 받아옴
 
                     // 로그인 위젯을 띄우고 focus 요청
                     flag_login = true;

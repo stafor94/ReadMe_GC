@@ -1,6 +1,7 @@
-package com.example.iternity.gachon_class;
+package com.stafor.iternity.gachon_class;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class GMailSender extends javax.mail.Authenticator {
     public GMailSender(String user, String password) {
         this.user = user;
         this.password = password;
+        Log.d("ReadMe", "user : " + user);
+        Log.d("ReadMe", "password : " + password);
 
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
@@ -65,14 +68,14 @@ public class GMailSender extends javax.mail.Authenticator {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
             } else {
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
-                new tesetAsynTastk().execute(null, null, null);
+                new mAsyncTask().execute(null, null, null);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    class tesetAsynTastk extends AsyncTask <Void, Void, Void> {
+    class mAsyncTask extends AsyncTask <Void, Void, Void> {
         @Override
         protected synchronized void onPreExecute() {
             super.onPreExecute();

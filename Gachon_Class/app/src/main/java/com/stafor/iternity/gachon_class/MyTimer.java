@@ -1,4 +1,4 @@
-package com.example.iternity.gachon_class;
+package com.stafor.iternity.gachon_class;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

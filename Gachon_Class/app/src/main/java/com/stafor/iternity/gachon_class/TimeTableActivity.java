@@ -1,4 +1,4 @@
-package com.example.iternity.gachon_class;
+package com.stafor.iternity.gachon_class;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -62,6 +62,7 @@ public class TimeTableActivity extends AppCompatActivity {
         layout[4] = (LinearLayout) findViewById(R.id.layout_fri);
     }
 
+    // 시간표를 생성하는 메소드
     public void fillTable(Lecture lecture) {
         float mScale = getResources().getDisplayMetrics().density;
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -136,6 +137,7 @@ public class TimeTableActivity extends AppCompatActivity {
         else return 0;
     }
 
+    // 요일을 int 형으로 리턴하는 메소드
     public int getDayCode(String time) {
         if (time.contains("월")) return 0;
         else if (time.contains("화")) return 1;

@@ -52,7 +52,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/border"
         android:orientation="vertical">
 
         <LinearLayout
@@ -62,21 +61,43 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <EditText
-                android:id="@+id/edit_login"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/border"
-                android:ems="10"
-                android:hint="가입하신 이메일을 적어주세요."
-                android:inputType="textEmailAddress"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="24sp" />
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/border"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/email"
+                    android:textAlignment="viewStart"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
             <CheckBox
                 android:id="@+id/chk_auto"
@@ -113,24 +134,40 @@
         <LinearLayout
             android:id="@+id/layout_signup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
             android:visibility="gone">
 
             <EditText
                 android:id="@+id/edit_signup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:background="@drawable/border"
                 android:ems="10"
-                android:hint="ex) abc@gc.gachon.ac.kr"
+                android:gravity="center"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
+                android:textAlignment="viewStart"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/email"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -146,6 +183,7 @@
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -161,7 +199,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="15dp"
-            android:text="보안 정책 상 기기 당 하나의 계정만 가입이 가능합니다."
+            android:text="간편가입을 위해서는 가천대학교 웹메일 인증이 필요합니다. \n기기 당 하나의 계정만 가입이 가능합니다."
+            android:textAlignment="center"
             android:textColor="@android:color/holo_red_dark" />
 
         <Button

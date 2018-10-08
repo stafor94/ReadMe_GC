@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.iternity.gachon_class.MainActivity"
+    tools:context="com.stafor.iternity.gachon_class.MainActivity"
     tools:showIn="@layout/activity_chatbot">
 
     <android.support.v7.widget.RecyclerView

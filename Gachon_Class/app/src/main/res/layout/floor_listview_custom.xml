@@ -16,9 +16,11 @@
 
         <ImageView
             android:id="@+id/iv_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/icon_stop" />
 
