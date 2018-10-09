@@ -16,7 +16,7 @@
         android:weightSum="1">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imgView_setting"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
@@ -42,6 +42,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:background="#ffffff"
         android:orientation="vertical">
@@ -71,6 +73,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:background="#ffffff"
         android:orientation="vertical">
@@ -99,6 +103,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:background="#ffffff"
         android:orientation="vertical">
@@ -127,6 +133,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:background="#ffffff"
         android:orientation="vertical">
@@ -145,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#065299"
-            android:text="자동 로그인 해제"
+            android:text="로그아웃"
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
 

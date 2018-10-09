@@ -1,5 +1,6 @@
 package com.stafor.iternity.gachon_class;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class SearchActivity extends AppCompatActivity implements OnClickListener {
+    public static Activity Search_Activity;
     AlertDialog.Builder[] builder = new AlertDialog.Builder[11];
     ImageButton[] btnSearch = new ImageButton[11];
-    ImageView imgView;
+    ImageView imgView, imgView_search;
     final String[] buildings = {"가천관", "비전타워", "공과대학1", "공과대학2", "바이오나노대학",
                                 "한의과대학", "IT대학", "예술대학1", "예술대학2", "글로벌센터", "교육대학원"};
     final String[][] items = {
@@ -38,12 +40,14 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        Search_Activity = SearchActivity.this;
 
         init();
     }
 
     private void init() {
         imgView = (ImageView) findViewById(R.id.img_campus);
+        imgView_search = (ImageView) findViewById(R.id.imgView_search);
         btnSearch[0] = (ImageButton) findViewById(R.id.btnSearch01);
         btnSearch[1] = (ImageButton) findViewById(R.id.btnSearch02);
         btnSearch[2] = (ImageButton) findViewById(R.id.btnSearch03);
@@ -57,6 +61,7 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
         btnSearch[10] = (ImageButton) findViewById(R.id.btnSearch11);
 
         imgView.setOnClickListener(this);
+        imgView_search.setOnClickListener(this);
 
         // 다이어로그 생성 밑 설정
         for (int i = 0; i < 11; i++) {
@@ -84,7 +89,10 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
             Intent intent = new Intent(getApplicationContext(), ImageActivity.class);
             intent.putExtra("img", R.drawable.image_campus2);
             startActivity(intent);
-        } else {    // 기타 버튼 클릭시
+        } else if (v.getId() == R.id.imgView_search) {  // 메인화면으로 이동
+            finish();
+        }
+        else {    // 기타 버튼 클릭시
             // 클릭한 버튼을 저장
             ImageButton b = (ImageButton)v;
             // 클릭한 버튼의 tag정보를 가져옴

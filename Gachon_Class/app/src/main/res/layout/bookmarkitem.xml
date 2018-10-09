@@ -11,13 +11,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="?attr/colorButtonNormal"
-        android:orientation="horizontal"
-        android:padding="3dp">
+        android:layout_height="70dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="#323232"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/bookmarkImg"
@@ -30,11 +30,12 @@
         <Button
             android:id="@+id/bookmarkClassroom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#323232"
             android:text="00대학 - 000호"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

@@ -7,8 +7,8 @@ android {
         applicationId "com.stafor.iternity.gachon_class"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 4
+        versionName "1.1.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

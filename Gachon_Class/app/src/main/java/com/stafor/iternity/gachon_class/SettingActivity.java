@@ -10,12 +10,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingActivity extends AppCompatActivity {
     Button btn_logout, btn_reset_email;
     TextView tv_email, tv_devEmail, tv_version;
+    ImageView imgView_setting;
     DBHelper_Login dbHelper_Login;
     DBHelper_Bookmark dbHelper_Bookmark;
 
@@ -38,6 +40,7 @@ public class SettingActivity extends AppCompatActivity {
         tv_version = (TextView) findViewById(R.id.tv_version);
         btn_logout = (Button) findViewById(R.id.btn_logout);
         btn_reset_email = (Button) findViewById(R.id.btn_reset_email);
+        imgView_setting = (ImageView) findViewById(R.id.imgView_setting);
 
         tv_email.setText(email);    // 사용자 이메일 표시
 
@@ -110,6 +113,14 @@ public class SettingActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("취소", null)
                         .show();
+            }
+        });
+
+        // 메인화면으로 가기
+        imgView_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

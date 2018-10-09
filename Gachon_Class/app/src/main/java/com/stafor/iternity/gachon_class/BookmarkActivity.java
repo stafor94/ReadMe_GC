@@ -41,14 +41,13 @@ import java.util.Collections;
 
 public class BookmarkActivity extends AppCompatActivity {
     private ListView mListView = null;
-//    private ListViewAdapter lAdapter = null;
     private MyAdapter mAdapter = null;
+    private ImageView imgView_bookmark;
     final String[] items = {"시간표 조회", "예약문의", "즐겨찾기 취소"};
     AlertDialog.Builder builder;
     private String nowSelect = null;
     private static String IP_ADDRESS = "stafor.cafe24.com";
     private String mJsonString;
-    GetData task;
     MyTimer myTimer;
 
     DBHelper_Bookmark dbHelper;
@@ -60,9 +59,16 @@ public class BookmarkActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.listBookmark);
 
-//        lAdapter = new ListViewAdapter(this);
         mAdapter = new MyAdapter(this);
         mListView.setAdapter(mAdapter);
+
+        imgView_bookmark = (ImageView) findViewById(R.id.imgView_bookmark);
+        imgView_bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         dbHelper = new DBHelper_Bookmark(getApplicationContext());
         getBookmarkList();
@@ -98,79 +104,6 @@ public class BookmarkActivity extends AppCompatActivity {
         public ImageView mImg;
         public Button mBtn;
     }
-
-//    private class ListViewAdapter extends BaseAdapter {
-//        private Context mContext = null;
-//        private ArrayList<String> mListData = new ArrayList<String>();
-//
-//        public ListViewAdapter(Context mContext) {
-//            super();
-//            this.mContext = mContext;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mListData.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return mListData.get(position);
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            ViewHolder holder;
-//            final int pos = position;
-//            if (convertView == null) {
-//                holder = new ViewHolder();
-//
-//                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                convertView = inflater.inflate(R.layout.bookmarkitem, null);
-//
-//                holder.mImg = (ImageView) convertView.findViewById(R.id.bookmarkImg);
-//                holder.mBtn = (Button) convertView.findViewById(R.id.bookmarkClassroom);
-//
-//                convertView.setTag(holder);
-//            } else {
-//                holder = (ViewHolder) convertView.getTag();
-//            }
-//
-//            final String mData = mListData.get(position);
-//            if (mData.equals("")) {
-//                Toast.makeText(getApplicationContext(), "등록된 강의실이 없습니다!", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//
-//            holder.mBtn.setText(mData);
-//            holder.mBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    nowSelect = mData;  // 클릭한 강의실 이름을 저장
-//                    builder.setTitle(mData);
-//                    builder.show();
-//                }
-//            });
-//
-//            return convertView;
-//        }
-//
-//        public void addItem(String lectureRoom){
-//            String addInfo = lectureRoom;
-//            mListData.add(addInfo);
-//        }
-//
-//        public void remove(int position){
-//            mListData.remove(position);
-//        }
-//
-//        public void clear() { mListData.clear(); }
-//    }
 
     // SQLite에 저장된 북마크 정보를 리스트뷰로 가져와 보여준다
     private void getBookmarkList() {

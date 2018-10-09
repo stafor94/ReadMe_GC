@@ -40,6 +40,7 @@ public class FloorActivity extends AppCompatActivity {
     private String building, floor, lectureRoom;
     Intent myIntent;
     AlertDialog.Builder builder;
+    ImageView imgView_floor;
     final String[] items = {"시간표 조회", "예약문의", "즐겨찾기 등록"};
     DBHelper_Bookmark dbHelper;
     MyTimer myTimer;
@@ -49,6 +50,15 @@ public class FloorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floor);
 
+        imgView_floor = (ImageView) findViewById(R.id.imgView_floor);
+        imgView_floor.setOnClickListener(new View.OnClickListener() {   // 메인화면으로 이동
+            @Override
+            public void onClick(View v) {
+                SearchActivity SA = (SearchActivity)SearchActivity.Search_Activity;
+                SA.finish();    // 이전 액티비티를 종료한다
+                finish();   // 현재 액티비티를 종료한다
+            }
+        });
         /* 위젯과 멤버변수 참조 획득 */
         mListView = (ListView) findViewById(R.id.listFloor);
         /* 리스트뷰에 어댑터 등록 */

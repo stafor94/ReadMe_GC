@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ibm.mobilefirstplatform.clientsdk.android.analytics.api.Analytics;
@@ -48,6 +49,7 @@ public class ChatActivity extends AppCompatActivity {
     private ArrayList messageArrayList;
     private EditText inputMessage;
     private ImageButton btnSend;
+    private ImageView imgView_chatbot;
     private com.ibm.watson.developer_cloud.conversation.v1.model.Context context = null;
     private boolean initialRequest;
     private Context mContext;
@@ -67,6 +69,14 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbot);
 
+        imgView_chatbot = findViewById(R.id.imgView_chatbot);
+        // 메인메뉴로 이동한다
+        imgView_chatbot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mContext = getApplicationContext();
 
         // IBM Watson Config
