@@ -243,7 +243,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     GMailSender sender = new GMailSender("ojland17@gmail.com", "dhlwnskfk");
                     authNum = new Random().nextInt(90000) + 10000; // 10001~99999
-                    Log.d("ReadMe", "To : " + edit_signup.getText().toString());
                     try {
                         sender.sendMail(
                                 "가천 Class 웹메일 인증",    // Subject

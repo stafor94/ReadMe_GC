@@ -32,7 +32,7 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
             {"6F", "5F", "4F", "3F", "2F", "1F"},   //IT대학
             {"7F", "6F", "5F", "4F", "3F", "2F", "1F", "B0F"}, //예술대학1
             {"4F", "3F", "2F", "1F", "B1F"}, //예술대학2
-            {"6F", "5F", "4F", "3F", "2F", "1F"},   //글로벌센터
+            {"6F", "5F", "3F", "2F", "1F"},   //글로벌센터
             {"6F", "5F", "4F", "3F", "2F", "1F"}  //교육대학원
     };
 

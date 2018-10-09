@@ -7,8 +7,8 @@ android {
         applicationId "com.stafor.iternity.gachon_class"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.1.1"
+        versionCode 5
+        versionName "1.1.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -20,6 +20,9 @@ android {
     }
     lintOptions {
         abortOnError false
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
@@ -40,6 +43,8 @@ dependencies {
     implementation 'com.commit451:PhotoView:1.2.4'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.api-client:google-api-client-android:1.25.0'
+    implementation 'com.google.apis:google-api-services-gmail:v1-rev96-1.25.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

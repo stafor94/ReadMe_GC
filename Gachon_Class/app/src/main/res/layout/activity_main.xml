@@ -61,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
                 tools:layout_editor_absoluteX="8dp"
@@ -72,7 +73,7 @@
                     android:layout_height="100dp"
                     android:background="@android:color/background_light"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/icon_class" />
+                    app:srcCompat="@drawable/icon_search" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -90,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
 
@@ -127,6 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
                 tools:layout_editor_absoluteX="8dp"
@@ -158,6 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
 

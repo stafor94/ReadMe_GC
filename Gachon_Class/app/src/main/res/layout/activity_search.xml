@@ -42,9 +42,9 @@
         <ImageView
             android:id="@+id/img_campus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginBottom="3dp"
-            android:background="@drawable/image_campus" />
+            android:background="@drawable/image_campus_info" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,159 +56,311 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/btnSearch01"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_gachon" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_gachon" />
 
             <ImageButton
                 android:id="@+id/btnSearch02"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_vision" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_vision" />
 
             <ImageButton
                 android:id="@+id/btnSearch03"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_engine1" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_engine" />
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnSearch04"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_engine2" />
-
-            <ImageButton
-                android:id="@+id/btnSearch05"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_bio" />
-
-            <ImageButton
-                android:id="@+id/btnSearch06"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_medicine" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnSearch07"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_it" />
-
-            <ImageButton
-                android:id="@+id/btnSearch08"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_art1" />
-
-            <ImageButton
-                android:id="@+id/btnSearch09"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_art2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnSearch10"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_global" />
-
-            <ImageButton
-                android:id="@+id/btnSearch11"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="@android:color/background_light"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_edu" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="가천관"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="비전타워"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="공과대학1"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnSearch04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_engine" />
+
+            <ImageButton
+                android:id="@+id/btnSearch05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_bio" />
+
+            <ImageButton
+                android:id="@+id/btnSearch06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_medic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="공과대학2"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="바이오나노대학"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="한의과대학"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnSearch07"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_it" />
+
+            <ImageButton
+                android:id="@+id/btnSearch08"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_art" />
+
+            <ImageButton
+                android:id="@+id/btnSearch09"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_art" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="IT대학"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="예술대학1"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="예술대학2"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnSearch10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_global" />
+
+            <ImageButton
+                android:id="@+id/btnSearch11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_grat" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/icon_grat" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="글로벌센터"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="교육대학원"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="bottom">
 
             <Button

@@ -2,7 +2,7 @@
     <string name="app_name">가천 Class</string>
     <string name="what_s_on_your_mind">질문을 입력하세요</string>
     <string name="finish">정말로 종료하시겠습니까?</string>
-    <string name="version">Version 1.1.1</string>
+    <string name="version">Version 1.1.2</string>
     <string name="email">\@gc.gachon.ac.kr</string>
     <string name="todo">TODO</string>
 </resources>

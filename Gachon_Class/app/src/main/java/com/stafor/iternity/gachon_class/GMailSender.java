@@ -20,7 +20,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
 public class GMailSender extends javax.mail.Authenticator {
     private String mailhost = "smtp.gmail.com";
     private String user;
@@ -64,6 +63,7 @@ public class GMailSender extends javax.mail.Authenticator {
             message.setSender(new InternetAddress(sender));
             message.setSubject(subject);
             message.setDataHandler(handler);
+
             if (recipients.indexOf(',') > 0) {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
             } else {
@@ -84,6 +84,7 @@ public class GMailSender extends javax.mail.Authenticator {
         @Override
         protected Void doInBackground(Void... params) {
             try {
+                Log.d("ReadMe", "doInBack : " + user + " / " + password);
                 Transport.send(message);
             } catch (MessagingException e) {
                 // TODO Auto-generated catch block

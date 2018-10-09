@@ -134,14 +134,14 @@ public class BookmarkActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(BookmarkActivity.this,
-                    "Please Wait", "서버에서 정보를 가져오는 중 입니다.", true, false);
+//            progressDialog = ProgressDialog.show(BookmarkActivity.this,
+//                    "Please Wait", "서버에서 정보를 가져오는 중 입니다.", true, false);
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
 
             if (result != null) {
                 mJsonString = result;

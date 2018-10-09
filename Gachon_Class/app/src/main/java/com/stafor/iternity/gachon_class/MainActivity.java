@@ -2,6 +2,7 @@ package com.stafor.iternity.gachon_class;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,8 +24,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 권한 허용
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+            .permitDiskReads()
+            .permitDiskWrites()
+            .permitNetwork().build());
+
         Intent mIntent = getIntent();
         email = mIntent.getStringExtra("email");
+
         btn_menu_1 = (ImageButton) findViewById(R.id.btnMain01);
         btn_menu_2 = (ImageButton) findViewById(R.id.btnMain02);
         btn_menu_3 = (ImageButton) findViewById(R.id.btnMain03);
