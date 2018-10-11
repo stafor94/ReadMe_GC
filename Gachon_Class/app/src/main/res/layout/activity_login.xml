@@ -10,84 +10,148 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#065299"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/image_logo" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="50dp"
-            android:gravity="center"
-            android:text="로그인"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            tools:textColor="#e0ffffff" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/img_campus"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/image_login" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/layout_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_weight="1"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:text="간편하게 가입하고"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="편리한 학교생활 하세요."
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/bg_bubble_watbot"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="ID"
+                        android:inputType="text"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="@string/email"
+                        android:textAlignment="viewStart"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/chk_auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:buttonTint="@android:color/black"
+                    android:checked="false"
+                    android:text="자동 로그인"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_round"
+                android:gravity="center"
+                android:text="로그인"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <EditText
-                    android:id="@+id/edit_login"
+                    android:id="@+id/edit_signup"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="3"
-                    android:background="@drawable/border"
+                    android:background="@drawable/bg_bubble_watbot"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="email"
-                    android:inputType="textEmailAddress"
+                    android:hint="ID"
+                    android:inputType="text"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
@@ -96,92 +160,23 @@
                     android:textAlignment="viewStart"
                     android:textColor="@android:color/background_dark"
                     android:textSize="24sp" />
+
             </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/chk_auto"
+            <Button
+                android:id="@+id/btn_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:buttonTint="@android:color/black"
-                android:checked="false"
-                android:text="자동 로그인"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:background="#065299"
-            android:gravity="center"
-            android:text="로그인"
-            android:textColor="#ffffff"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/layout_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <EditText
-                android:id="@+id/edit_signup"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="3"
-                android:background="@drawable/border"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="email"
-                android:inputType="textEmailAddress"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="@string/email"
-                android:textAlignment="viewStart"
-                android:textColor="@android:color/background_dark"
-                android:textSize="24sp" />
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_round"
+                android:text="간편가입"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:background="#065299"
-            android:text="간편가입"
-            android:textColor="#ffffff"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
     </LinearLayout>
 
     <LinearLayout

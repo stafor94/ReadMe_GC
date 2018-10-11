@@ -152,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#065299"
+            android:background="@drawable/bg_round"
             android:text="로그아웃"
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
@@ -163,7 +163,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:layout_margin="10dp"
-            android:background="#065299"
+            android:background="@drawable/bg_round"
             android:text="회원탈퇴"
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />

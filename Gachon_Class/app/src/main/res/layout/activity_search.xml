@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_marginBottom="3dp"
-            android:background="@drawable/image_campus_info" />
+            android:background="@drawable/image_campus" />
     </LinearLayout>
 
     <LinearLayout

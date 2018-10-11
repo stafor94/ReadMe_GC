@@ -251,18 +251,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             })
                             .setNegativeButton("취소", null)
                             .show();
-//                    GMailSender sender = new GMailSender("ojland17@gmail.com", "dhlwnskfk");
-//                    try {
-//                        sender.sendMail(
-//                                "가천 Class 웹메일 인증",    // Subject
-//                                "인증번호 : " + authNum + "\n\n위 인증번호를 앱에서 입력해주세요.",    // Body
-//                                "ojland17@gmail.com",   // Sender
-//                                mEmail + "@gc.gachon.ac.kr" // Receiver
-//                        );
-//                    } catch (Exception e) {
-//                        Log.e("ReadMe", e.getMessage(), e);
-//                    }
-
                 } else {
                     flag_signup = true;  // 간편가입 열림 상태
                     flag_login = false;  // 로그인 닫힘 상태
