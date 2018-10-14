@@ -23,7 +23,6 @@
             android:id="@+id/bookmarkImg"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             app:srcCompat="@drawable/icon_running" />
 

@@ -33,9 +33,9 @@ public class TimeTableActivity extends AppCompatActivity {
     final String TAG = "ReadMe";
     float[] lastTime = {1.f, 1.f, 1.f, 1.f, 1.f};    // 각 요일별 입력된 마지막 시간을 담는 변수
 
-    int[] colors = {Color.rgb(255,105,180), Color.rgb(0,175,255), Color.rgb(0,0,205),
-            Color.rgb(128,225,42), Color.rgb(85,238,148), Color.rgb(255,86,117),
-            Color.rgb(255,145,0), Color.rgb(173,25,236), Color.rgb(40,40,40)};
+    int[] colors = {Color.rgb(255,222,255), Color.rgb(222,222,255), Color.rgb(255,255,222),
+            Color.rgb(222,255,255), Color.rgb(246,237,246), Color.rgb(255,242,242),
+            Color.rgb(247,255,251), Color.rgb(222,255,222), Color.rgb(246,246,237)};
     int colorCnt = 0;
 
     ArrayList<Lecture> lectures = new ArrayList<>();
@@ -96,13 +96,13 @@ public class TimeTableActivity extends AppCompatActivity {
         TextView tv = new TextView(this);
         tv.setText(lecture.getSubject());   // 강의명
         tv.setBackgroundColor(colors[colorCnt++ % 9]);  // 배경색 지정 (index 0~8)
-        tv.setTextColor(Color.WHITE);   // 글자색 지정
+        tv.setTextColor(Color.BLACK);   // 글자색 지정
         tv.setGravity(Gravity.CENTER); // TextView 정렬
 
         // 오버되는 글씨는 흐르게하기
-        tv.setSelected(true);
-        tv.setSingleLine(true);
-        tv.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+//        tv.setSelected(true);
+//        tv.setSingleLine(true);
+//        tv.setEllipsize(TextUtils.TruncateAt.MARQUEE);
 
         param.gravity = Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
         tv.setLayoutParams(param);

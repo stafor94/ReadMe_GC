@@ -66,7 +66,7 @@
             android:layout_weight="1"
             android:text="UserEmail@gc.gachon.ac.kr"
             android:textColor="#666666"
-            android:textSize="25sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:layout_marginTop="5dp"
             android:text="ojland17@gmail.com"
             android:textColor="#666666"
-            android:textSize="25sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -126,7 +126,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/version"
             android:textColor="#666666"
-            android:textSize="25sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 

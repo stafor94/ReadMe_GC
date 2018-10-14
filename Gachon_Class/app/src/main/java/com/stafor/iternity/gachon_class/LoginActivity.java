@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,12 +21,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -40,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     LinearLayout layout_login, layout_signup;
     Button btn_login, btn_signup, btn_auth;
     CheckBox chk_auto;
-    TextView time_counter;
+    TextView time_counter, tv_link;
     EditText edit_login, edit_signup, edit_auth;
 
     LayoutInflater dialog;  // LayoutInflater
@@ -113,6 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         time_counter = (TextView) dialogLayout.findViewById(R.id.tv_time_counter);  // 시간을 표시할 TextView
         edit_auth = (EditText) dialogLayout.findViewById(R.id.edit_auth);   // 인증번호를 입력받는 EditText
         btn_auth = (Button) dialogLayout.findViewById(R.id.btn_auth);   // 인증번호 확인 버튼
+        tv_link = (TextView) dialogLayout.findViewById(R.id.tv_link);
 
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             @Override
@@ -137,33 +146,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }.start();
 
         btn_auth.setOnClickListener(this);
+        tv_link.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                if (flag_login) {
+                if (flag_login) {   // 로그인 화면 활성화 시
                     String mEmail = edit_login.getText().toString();
                     if (mEmail.equals(email) && !mEmail.equals("")) {   // SQLite DB의 email과 같고, 공백이 아니면
                         if (chk_auto.isChecked()) { // 자동 로그인 체크시
                             dbHelper_Login.update(1);  // SQLite DB에서 정보 수정
                         }
                         login();    // 로그인 완료
-                    } else {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        alert.setMessage("이메일 정보가 존재하지 않습니다!");
-                        alert.show();
-                        edit_login.setText(""); // EditText를 비운다
-                        edit_login.requestFocus();  // focus 요청
+                    } else {    // Guest 계정인지 확인
+                        new GetGuest().execute( "http://" + IP_ADDRESS + "/getGuest.php", mEmail);
                     }
-                } else {
+                } else {    // 로그인 화면 비활성화 시
                     flag_login = true;  // 로그인 열림 상태
                     flag_signup = false;  // 간편가입 닫힘 상태
                     layout_login.setVisibility(View.VISIBLE);   // 로그인 위젯을 보여준다
@@ -184,6 +184,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     dbHelper_Bookmark.clear();  // 즐겨찾기 정보 제거
                                     dbHelper_Login = new DBHelper_Login(getApplicationContext());
                                     email = "";
+
+                                    flag_signup = true;  // 간편가입 열림 상태
+                                    flag_login = false;  // 로그인 닫힘 상태
+                                    layout_signup.setVisibility(View.VISIBLE);   // 간편가입 위젯을 보여준다
+                                    layout_login.setVisibility(View.GONE);   // 로그인 위젯을 감춘다
+                                    edit_signup.setFocusableInTouchMode(true);   // focus 가능하게 함
+                                    edit_signup.requestFocus();  // focus 요청
+
                                     Toast.makeText(getApplicationContext(), "아이디가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -283,6 +291,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 authDialog.cancel();
 
+                break;
+            case R.id.tv_link:
+                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mail.gachon.ac.kr/pageLinker.ds?act=frame"));
+                startActivity(mIntent);
                 break;
         }
     }
@@ -479,5 +491,117 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return false;
             }
         }
+    }
+
+    private class GetGuest extends AsyncTask<String, Void, String> {
+        String errorString = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            if (result != null) {
+                mJsonString = result;
+                showResult();
+            } else {
+                Toast.makeText(getApplicationContext(),"서버와 연결이 원활하지 않습니다.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String serverURL = params[0];
+            String postParameters = "email=" + params[1];
+
+            try {
+                URL url = new URL(serverURL); // 주소가 저장된 변수를 이곳에 입력합니다.
+
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(4000); //4초안에 응답이 오지 않으면 예외가 발생합니다.
+                httpURLConnection.setConnectTimeout(4000); //4초안에 연결이 안되면 예외가 발생합니다.
+                httpURLConnection.setRequestMethod("POST"); //요청 방식을 POST로 합니다.
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8")); //전송할 데이터가 저장된 변수를 이곳에 입력합니다.
+                outputStream.flush();
+                outputStream.close();
+
+                // 응답을 읽습니다.
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d("ReadMe", "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    // 정상적인 응답 데이터
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    // 에러 발생
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+            } catch (Exception e) {
+                Log.d("ReadMe", "InsertMember : Error ", e);
+                errorString = e.toString();
+                return null;
+            }
+        }
+    }
+    private void showResult() {
+        String TAG_JSON ="GUEST";
+        String TAG_DueDate = "만료일";
+
+        try {
+            if (!mJsonString.equals("")) {  // 로그인 성공 시
+                JSONObject jsonObject = new JSONObject(mJsonString);
+                JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+                JSONObject item = jsonArray.getJSONObject(0);
+                String dueDate = item.getString(TAG_DueDate); // 만료일
+
+                Toast.makeText(getApplicationContext(), "Guest 계정 만료일 : " + dueDate, Toast.LENGTH_LONG).show();
+                email = "GUEST";
+                login();    // 로그인 완료
+            } else {    // 로그인 실패 시
+                AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.setMessage("이메일 정보가 존재하지 않습니다!");
+                alert.show();
+                edit_login.setText(""); // EditText를 비운다
+                edit_login.requestFocus();  // focus 요청
+                //키보드 보이게 하는 부분
+                InputMethodManager imm = (InputMethodManager) getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }
+        } catch (JSONException e) {
+            Log.d("ReadMe", "showResult : ", e);
+        }
+
     }
 }

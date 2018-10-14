@@ -2,7 +2,8 @@
     <string name="app_name">가천 Class</string>
     <string name="what_s_on_your_mind">질문을 입력하세요</string>
     <string name="finish">정말로 종료하시겠습니까?</string>
-    <string name="version">Version 1.1.6</string>
+    <string name="version">Version 1.2.0</string>
     <string name="email">\@gc.gachon.ac.kr</string>
+    <string name="info1">간편가입에는 학교 웹메일 인증이 필요합니다. \n기기 당 하나의 계정만 가입이 가능합니다.</string>
     <string name="todo">TODO</string>
 </resources>

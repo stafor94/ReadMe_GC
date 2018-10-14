@@ -9,7 +9,8 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/backgroud_splash</item>
+        <item name="android:windowBackground">@drawable/image_splash</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 
 </resources>
